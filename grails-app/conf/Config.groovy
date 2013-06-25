@@ -113,20 +113,6 @@ moduleConfiguration {
 		externalURL = "http://localhost:28081"
 		externalPath = "/ECKDefinition"
 	}
-	Persistence {
-		internalURL = "http://localhost:28080"
-		internalPath = "/KIPersistence"
-		externalURL = "http://localhost:28080"
-		externalPath = "/KIPersistence"
-		parameters {
-			eckId = ""
-			cmsId = ""
-			persistentId = ""
-			id = ""
-			idType = ""
-			deleted = ""
-		}
-	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
 		internalPath = "/pid"

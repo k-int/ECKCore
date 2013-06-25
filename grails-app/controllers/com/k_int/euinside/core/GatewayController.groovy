@@ -45,16 +45,6 @@ class GatewayController {
 		processResponse(responseValue, ModulesService.MODULE_DEFINITION);
 	}
 	
-    def persistenceGetRelay() {
-		def responseValue = ModulesService.httpGet(ModulesService.MODULE_PERSISTENCE, params, request);
-		processResponse(responseValue, ModulesService.MODULE_PERSISTENCE);
-	}
-	
-    def persistencePostRelay() {
-		def responseValue = ModulesService.httpPost(ModulesService.MODULE_PERSISTENCE, params, request);
-		processResponse(responseValue, ModulesService.MODULE_PERSISTENCE);
-	}
-
 	def pidGenerateGetRelay() {
 		def responseValue = ModulesService.httpGet(ModulesService.MODULE_PID_GENERATE, params, request);
 		processResponse(responseValue, ModulesService.MODULE_PID_GENERATE);

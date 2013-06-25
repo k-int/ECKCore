@@ -13,10 +13,6 @@ class UrlMappings {
 			controller = "gateway"
 			action = [GET : "pidGenerateGetRelay", POST : "pidGeneratePostRelay"]
 		}
-		"/Persistence/$path**" {
-			controller = "gateway"
-			action = [GET : "persistenceGetRelay", POST : "persistencePostRelay"]
-		}
 		"/Preview/$path**" {
 			controller = "gateway"
 			action = [GET : "previewGetRelay", POST : "previewPostRelay"]
@@ -36,11 +32,6 @@ class UrlMappings {
 		"/Validation2/$path**" {
 			controller = "gateway"
 			action = [GET : "validate2GetRelay", POST : "validate2PostRelay"]
-		}
-		"/$controller/$action?/$id?"{
-			constraints {
-				// apply constraints here
-			}
 		}
 
 		"/"(view:"/index")

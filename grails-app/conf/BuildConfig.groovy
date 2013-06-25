@@ -59,5 +59,3 @@ grails.project.dependency.resolution = {
 
     }
 }
-
-grails.plugin.location.SharedModelLayerPlugin = "../SharedModelLayerPlugin"
