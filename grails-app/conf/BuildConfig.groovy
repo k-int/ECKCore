@@ -37,17 +37,14 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        runtime 'mysql:mysql-connector-java:5.1.21'
 		runtime 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
 		runtime 'org.apache.httpcomponents:httpmime:4.2.3'
 		runtime 'commons-io:commons-io:2.4'
     }
 
     plugins {
-        runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2.RC2"
-
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
@@ -55,7 +52,5 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
-
-
     }
 }
