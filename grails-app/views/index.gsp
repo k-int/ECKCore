@@ -26,6 +26,7 @@
 	                		<li><g:link base="http://euinside.semantika.si/pid/Generate">PID Generation</g:link></li>
 	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview</g:link></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}/">Set Manager</g:link></li>
+	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}/">Statistics</g:link></li>
 	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-validation-servlet/index.html">Validation (monguz)</g:link></li>
 	                		<li><g:link base="http://euinside.semantika.si/">Validation (semantika)</g:link></li>
 	            		</ul>

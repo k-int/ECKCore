@@ -25,6 +25,10 @@ class UrlMappings {
 			controller = "gateway"
 			action = [GET : "setManagerGetRelay", POST : "setManagerPostRelay"]
 		}
+		"/Statistics/$path**" {
+			controller = "gateway"
+			action = [GET : "statisticsGetRelay", POST : "statisticsPostRelay"]
+		}
 		"/Validation/$path**" {
 			controller = "gateway"
 			action = [GET : "validateGetRelay", POST : "validatePostRelay"]

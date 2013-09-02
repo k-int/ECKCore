@@ -75,6 +75,16 @@ class GatewayController {
 		processResponse(responseValue, ModulesService.MODULE_SET_MANAGER);
 	}
 
+	def statisticsGetRelay() {
+		def responseValue = ModulesService.httpGet(ModulesService.MODULE_STATISTICS, params, request);
+		processResponse(responseValue, ModulesService.MODULE_STATISTICS);
+	}
+	
+    def statisticsPostRelay() {
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_STATISTICS, params, request);
+		processResponse(responseValue, ModulesService.MODULE_STATISTICS);
+	}
+
 	def validateGetRelay() {
 		def responseValue = ModulesService.httpGet(ModulesService.MODULE_VALIDATE, params, request);
 		processResponse(responseValue, ModulesService.MODULE_VALIDATE);

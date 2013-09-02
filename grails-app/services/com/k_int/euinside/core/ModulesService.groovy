@@ -22,8 +22,9 @@ class ModulesService {
 	public static String MODULE_PID_GENERATE = "PIDGenerate";
 	public static String MODULE_PREVIEW      = "Preview";
 	public static String MODULE_SET_MANAGER  = "SetManager";
+	public static String MODULE_STATISTICS   = "Statistics";
 	public static String MODULE_VALIDATE     = "Validate";    // monguz validation
-	public static String MODULE_VALIDATE2    = "Validate2";    // semantika validation
+	public static String MODULE_VALIDATE2    = "Validate2";   // semantika validation
 	
 	private static def modules;
 	private static String corePath;
@@ -92,6 +93,10 @@ class ModulesService {
 	
 	public static String getSetManagerModuleCode() {
 		return(MODULE_SET_MANAGER);
+	}
+	
+	public static String getStatisticsModuleCode() {
+		return(MODULE_STATISTICS);
 	}
 	
 	public static String getValidateModuleCode() {

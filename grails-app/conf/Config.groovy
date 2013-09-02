@@ -141,6 +141,23 @@ moduleConfiguration {
 			statisticsDetails = ""
 		}
 	}
+	Statistics {
+		internalURL = "http://localhost:28085"
+		internalPath = "/ECKStatistics"
+		externalURL = "http://localhost:28085"
+		externalPath = "/ECKStatistics"
+		parameters {
+			dateTime = ""
+			days = ""
+			duration = ""
+			itemsProcessed = ""
+			limit = ""
+			numberFailed = ""
+			numberSuccessful = ""
+			offset = ""
+			queryType = ""
+		}
+	}
 	Validate {
 		internalURL = "http://app.asp.hunteka.hu:5080"
 		internalPath = "/eck-validation-module/profiles"
