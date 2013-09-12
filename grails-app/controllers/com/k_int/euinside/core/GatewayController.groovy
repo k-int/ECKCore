@@ -15,24 +15,37 @@ class GatewayController {
 		if (responseValue.status.statusCode == HttpServletResponse.SC_OK) {
 			def contentType = responseValue.contentType;
 			
-			if (contentType != null) {
-				// We have disabled the automatic parsing, so everything should come back as a string ...
-				// If we ever deal with binary objects, then this will probably need to change ...
+			if ((contentType != null) && (responseValue.contentBytes != null)) {
 				// if the content type is html, then we need to modify the urls contained in the html
-				String html = responseValue.contentString;
+				String html = new String(responseValue.contentBytes, "UTF-8");
 				if (contentType.contains("html")) {
 					html = ModulesService.replacePathInHtml(module, html);
-				} 
-				render(text : html, contentType : contentType, encoding : "UTF-8");
+					render(text : html, contentType : contentType, encoding : "UTF-8");
+				} else {
+					// For everything else we juat pass back what we were supplied 
+					response.contentType = contentType;
+					response.outputStream << responseValue.contentBytes;
+				}
 				rendered = true;
 			}
 		}
 
-		// If we have not rendered the response then just pass back the status code and the content of the body 
+		// If we have not rendered the response then just pass back the status code and the content of the body, assuming it is text 
 		if (!rendered) {
 			def statusCode = responseValue.status.statusCode;
-			render(status: statusCode, text: responseValue.contentString, contentType: "text/plain", encoding: "UTF-8");
+			def contentString = ((responseValue.contentBytes == null) ? "" : new String(responseValue.contentBytes, "UTF-8"));
+			render(status: statusCode, text: contentString, contentType: "text/plain", encoding: "UTF-8");
 		}
+	}
+	
+    def dataMappingGetRelay() {
+		def responseValue = ModulesService.httpGet(ModulesService.MODULE_DATA_MAPPING, params, request);
+		processResponse(responseValue, ModulesService.MODULE_DATA_MAPPING);
+	}
+	
+    def dataMappingPostRelay() {
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_DATA_MAPPING, params, request, true);
+		processResponse(responseValue, ModulesService.MODULE_DATA_MAPPING);
 	}
 	
     def definitionGetRelay() {

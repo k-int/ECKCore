@@ -5,11 +5,11 @@ import groovyx.net.http.HTTPBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody
+import org.apache.http.entity.mime.content.StringBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import org.apache.http.entity.mime.MultipartEntity
 
@@ -17,6 +17,7 @@ class ModulesService {
 	def grailsApplication
 
 	public static String MODULE_CORE         = "Core";
+	public static String MODULE_DATA_MAPPING = "DataMapping";
 	public static String MODULE_DEFINITION   = "Definition";
 	public static String MODULE_PERSISTENCE  = "Persistence";
 	public static String MODULE_PID_GENERATE = "PIDGenerate";
@@ -77,6 +78,10 @@ class ModulesService {
 
 	public static String getCoreModuleCode() {
 		return(MODULE_CORE);
+	}
+	
+	public static String getDataMappingModuleCode() {
+		return(MODULE_DATA_MAPPING);
 	}
 	
 	public static String getDefinitionModuleCode() {
@@ -192,13 +197,17 @@ class ModulesService {
 		def result = [ : ];
 		result.content = content;
 		result.status = httpResponse.statusLine;
-		result.contentString = "";
+		result.contentBytes = null;
 
 		// If we have a reader in our hand, then get hold of the string		
-		if ((content != null) && (content instanceof java.io.Reader)) {
-			// We probably shouldn't always turn it into a string, as there maybe the possibility in the future
-			// that we are dealing with a binary response and that wioll catch us out
-			result.contentString= IOUtils.toString(new ReaderInputStream(content, "UTF-8"), "UTF-8");
+		if (content != null) {
+			if (content instanceof java.io.Reader) {
+				// Turn the response into a byte array
+				result.contentBytes = IOUtils.toByteArray(content, "UTF-8");
+			} else if (content instanceof java.io.InputStream) {
+				// Slightly different conersion in this case
+				result.contentBytes = IOUtils.toByteArray(content);
+			}
 		}
 
 		if (httpResponse.statusLine.statusCode == HttpServletResponse.SC_OK) {
@@ -221,7 +230,24 @@ class ModulesService {
 	 *                 contentType ... The type of the content
 	 */
 	def httpGet(module, parameters, requestObject) {
-		return(http(module, parameters, requestObject, Method.GET));
+		return(http(module, parameters, requestObject, Method.GET, false));
+	}
+
+	/**
+	 * Performs a gateway http POST request
+	 * 	
+	 * @param module .......... The module we are performing the gateway operation for 
+	 * @param parameters ...... Query parameters that may need passing onto the module
+	 * @param requestObject ... The original request object, required for passing through any posted files
+	 * @param treatEverythingAsFormData If true, treat parameters and attachments as form data
+	 * 
+	 * @return ... A map that contains the following obects
+	 *                 content ....... The returned content
+	 *                 status ........ The status line
+	 *                 contentType ... The type of the content
+	 */
+	def httpPost(module, parameters, requestObject, treatEverythingAsFormData) {
+		return(http(module, parameters, requestObject, Method.POST, treatEverythingAsFormData));
 	}
 
 	/**
@@ -237,7 +263,7 @@ class ModulesService {
 	 *                 contentType ... The type of the content
 	 */
 	def httpPost(module, parameters, requestObject) {
-		return(http(module, parameters, requestObject, Method.POST));
+		return(httpPost(module, parameters, requestObject, false));
 	}
 
 	/**
@@ -247,13 +273,14 @@ class ModulesService {
 	 * @param parameters ...... Query parameters that may need passing onto the module
 	 * @param requestObject ... The original request object, required for passing through any posted files
 	 * @param method .......... The http method to be performed, defined in groovyx.net.http.Method
+	 * @param treatEverythingAsFormData If true, treat parameters and attachments as form data
 	 * 
 	 * @return ... A map that contains the following obects
 	 *                 content ....... The returned content
 	 *                 status ........ The status line
 	 *                 contentType ... The type of the content
 	 */
-	private def http(module, parameters, requestObject, method) {
+	private def http(module, parameters, requestObject, method, treatEverythingAsFormData) {
 		def result = null;
 		
 		def url = determineURL(module, parameters.path);
@@ -279,43 +306,52 @@ class ModulesService {
 		http.parser.'text/html' = http.parser.'text/plain';
 		
 		http.request(method) { req ->
-			
-			// Only add the file contents, if we have been supplied with them
-			if (multiPartFiles == null) {
-				// No files to send, so just set the content type to that of a form
-				requestContentType : ContentType.MULTIPART_FORM_DATA
+			def entity = null;
+			def contentType = ContentType.MULTIPART_FORM_DATA;
+			 
+			// For Libis everything has to be posted ...
+			if (treatEverythingAsFormData) {
+				// Build up the file parts
+				entity = buildMultiPartFilesEntity(multiPartFiles);				
+
+				// We now need to deal with the query arguments
+				addArgumentsToEntity(entity, queryArguments);
 			} else {
-				// If we only have 1 file then do not send it as a form
-				if (multiPartFiles.size() == 1) {
-					// We only have 1 file so set that directly to the body
-					multiPartFiles.each() {parameterName, multiPartFile ->
-						// Do we need to set the content type twice ????
-						requestContentType : multiPartFile.contentType
-												
+				// Only add the file contents, if we have been supplied with them
+				if ((multiPartFiles != null) && !multiPartFiles.isEmpty()) {
+					// If we only have 1 file then do not send it as a form unless we are told to do so
+					if (multiPartFiles.size() == 1) {
 						// We only have 1 file so set that directly to the body
-						req.setEntity(new ByteArrayEntity(multiPartFile.bytes, ContentType.parse(multiPartFile.contentType)));
+						multiPartFiles.each() {parameterName, multiPartFile ->
+							// Do we need to set the content type twice ????
+							contentType = multiPartFile.contentType
+													
+							// We only have 1 file so set that directly to the body
+							entity = new ByteArrayEntity(multiPartFile.bytes, ContentType.parse(multiPartFile.contentType));
+						}
+					} else {
+						// Build up the file parts
+						entity = buildMultiPartFilesEntity(multiPartFiles);				
 					}
-				} else if (multiPartFiles.size() > 1) {
-					requestContentType : ContentType.MULTIPART_FORM_DATA
-					MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
-					multiPartFiles.each() {parameterName, multiPartFile ->
-						// Add the file contents to the request as the specified parameter
-					    multiPartContent.addPart(parameterName, new ByteArrayBody(multiPartFile.bytes, multiPartFile.contentType, multiPartFile.originalFilename));
-					}
-					
-					// Now we can add the parts to the request
-					req.setEntity(multiPartContent)
 				}
+					
+				// add all the arguments
+				uri.query = queryArguments;
 			}
-				
-			// add all the arguments
-			uri.query = queryArguments;
+
+			// Set the content type of the request			
+			requestContentType : contentType;
+			
+			// If we have an entity then set it
+			if (entity != null) {
+				// Now we can add the parts to the request
+				req.setEntity(entity);
+			}
 			
 			// Set the Accept header
 			headers.'Accept' = requestObject.getHeader("Accept");
 			
 			// Deal with the response
-			// We need to deal with failures in some sensible way	   
 			response.success = { httpResponse, content ->
 				result = processResponse(httpResponse, content);
 			}
@@ -327,5 +363,38 @@ class ModulesService {
 		}
 	   
 		return(result);
+	}
+
+	/**
+	 * Builds an entity containing the files to be sent
+	 * 	
+	 * @param multiPartFiles The files that need to passed on
+	 * 
+	 * @return The entity that contains the multipart files
+	 */
+	private def buildMultiPartFilesEntity(multiPartFiles) {
+		def entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+		if (multiPartFiles != null) {
+			multiPartFiles.each() {parameterName, multiPartFile ->
+				// Add the file contents to the request as the specified parameter
+				entity.addPart(parameterName, new ByteArrayBody(multiPartFile.bytes, multiPartFile.contentType, multiPartFile.originalFilename));
+			}
+		}
+		return(entity);
+	}
+
+	/**
+	 * Adds the query arguments to the entity
+	 * 	
+	 * @param entity The entity the arguments are to be added to
+	 * @param queryArguments The query arguments that need to be added to the entity
+	 */
+	private def addArgumentsToEntity(entity, queryArguments) {
+		if (queryArguments != null) {
+			queryArguments.each() {key, value ->
+				// Add the parameters to the request
+				entity.addPart(key, new StringBody(value));
+			}
+		}
 	}
 }

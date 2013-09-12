@@ -22,9 +22,10 @@
 	          		<div class="span12">
 	            		<h2>Available Modules</h2>
 	            		<ul>
+	                		<li><g:link base="http://WaitingOnLibis">Data Mapping (libis)</g:link></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}/">Metadata Definition</g:link></li>
-	                		<li><g:link base="http://euinside.semantika.si/pid/Generate">PID Generation</g:link></li>
-	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview</g:link></li>
+	                		<li><g:link base="http://euinside.semantika.si/pid/Generate">PID Generation (semantika)</g:link></li>
+	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview (monguz)</g:link></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}/">Set Manager</g:link></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}/">Statistics</g:link></li>
 	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-validation-servlet/index.html">Validation (monguz)</g:link></li>
