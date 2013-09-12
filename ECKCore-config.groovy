@@ -3,15 +3,20 @@
 modules {
 	Core {
 	}
+	DataMapping {
+	}
 	Definition {
 	}
-	Persistence {
+	PIDGenerate {
 	}
 	Preview {
 	}
 	SetManager {
 	}
+	Statistics {
+	}
 	Validate {
 	}
+	Validate2 {
+	}
 }
-

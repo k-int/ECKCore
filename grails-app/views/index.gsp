@@ -22,7 +22,8 @@
 	          		<div class="span12">
 	            		<h2>Available Modules</h2>
 	            		<ul>
-	                		<li><g:link base="http://WaitingOnLibis">Data Mapping (libis)</g:link></li>
+	                		<li><g:link base="http://www.heron-net.be/einside_test/dmt.php/DataMapping">Data Mapping (libis)</g:link></li>
+	                		<li><g:link base="http://services.libis.be/euInside/dmt.php/DataMapping">Data Transformation (libis)</g:link></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}/">Metadata Definition</g:link></li>
 	                		<li><g:link base="http://euinside.semantika.si/pid/Generate">PID Generation (semantika)</g:link></li>
 	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview (monguz)</g:link></li>
