@@ -1,9 +1,9 @@
 class UrlMappings {
 
 	static mappings = {
-		"/DataMapping/$path**" {
+		"/DataTransformation/$path**" {
 			controller = "gateway"
-			action = [GET : "dataMappingGetRelay", POST : "dataMappingPostRelay"]
+			action = [GET : "dataTransformationGetRelay", POST : "dataTransformationPostRelay"]
 		}
 		name definition : "/Definition" {
 			controller = "gateway"

@@ -104,7 +104,7 @@ moduleConfiguration {
 		externalURL = "http://localhost:8080"
 		externalPath = "/ECKCore"
 	}
-	DataMapping {
+	DataTransformation {
 		internalURL = "http://services.libis.be"
 		internalPath = "/euInside/dmt.php/DataMapping"
 		externalURL = "http://services.libis.be"

@@ -16,16 +16,15 @@ import org.apache.http.entity.mime.MultipartEntity
 class ModulesService {
 	def grailsApplication
 
-	public static String MODULE_CORE         = "Core";
-	public static String MODULE_DATA_MAPPING = "DataMapping";
-	public static String MODULE_DEFINITION   = "Definition";
-	public static String MODULE_PERSISTENCE  = "Persistence";
-	public static String MODULE_PID_GENERATE = "PIDGenerate";
-	public static String MODULE_PREVIEW      = "Preview";
-	public static String MODULE_SET_MANAGER  = "SetManager";
-	public static String MODULE_STATISTICS   = "Statistics";
-	public static String MODULE_VALIDATE     = "Validate";    // monguz validation
-	public static String MODULE_VALIDATE2    = "Validate2";   // semantika validation
+	public static String MODULE_CORE                = "Core";
+	public static String MODULE_DATA_TRANSFORMATION = "DataTransformation"; // Libis
+	public static String MODULE_DEFINITION          = "Definition";
+	public static String MODULE_PID_GENERATE        = "PIDGenerate";        // Semantika
+	public static String MODULE_PREVIEW             = "Preview";
+	public static String MODULE_SET_MANAGER         = "SetManager";
+	public static String MODULE_STATISTICS          = "Statistics";
+	public static String MODULE_VALIDATE            = "Validate";    // monguz validation
+	public static String MODULE_VALIDATE2           = "Validate2";   // semantika validation
 	
 	private static def modules;
 	private static String corePath;
@@ -81,15 +80,11 @@ class ModulesService {
 	}
 	
 	public static String getDataMappingModuleCode() {
-		return(MODULE_DATA_MAPPING);
+		return(MODULE_DATA_TRANSFORMATION);
 	}
 	
 	public static String getDefinitionModuleCode() {
 		return(MODULE_DEFINITION);
-	}
-	
-	public static String getPersistenceModuleCode() {
-		return(MODULE_PERSISTENCE);
 	}
 	
 	public static String getPreviewModuleCode() {

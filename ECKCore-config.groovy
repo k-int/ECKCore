@@ -3,7 +3,7 @@
 modules {
 	Core {
 	}
-	DataMapping {
+	DataTransformation {
 	}
 	Definition {
 	}
