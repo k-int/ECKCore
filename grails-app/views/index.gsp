@@ -22,15 +22,15 @@
 	          		<div class="span12">
 	            		<h2>Available Modules</h2>
 	            		<ul>
-	                		<li><g:link base="http://www.heron-net.be/einside_test/dmt.php/DataMapping">Data Mapping (libis)</g:link></li>
-	                		<li><g:link base="http://services.libis.be/euInside/dmt.php/DataMapping">Data Transformation (libis)</g:link></li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}/">Metadata Definition</g:link></li>
-	                		<li><g:link base="http://euinside.semantika.si/pid/Generate">PID Generation (semantika)</g:link></li>
-	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview (monguz)</g:link></li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}/">Set Manager</g:link></li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}/">Statistics</g:link></li>
-	                		<li><g:link base="http://app.asp.hunteka.hu:5080/eck-validation-servlet/index.html">Validation (monguz)</g:link></li>
-	                		<li><g:link base="http://euinside.semantika.si/">Validation (semantika)</g:link></li>
+	                		<li><g:link base="http://www.heron-net.be/einside_test" controller="dmt.php" action="DataMapping">Data Mapping (libis)</g:link> <a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">Download api</a></li>
+	                		<li><g:link base="http://services.libis.be/euinside" controller="mt.php" action="DataMapping">Data Transformation (libis)</g:link> <a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">Download api</a></li>
+	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}">Metadata Definition (k-int)</g:link> Module home page describes api</li>
+	                		<li><g:link base="http://euinside.semantika.si" controller="pid" action="Generate">PID Generation (semantika)</g:link> <a href="/ECKCore/static/docs/Semantika_EU_Inside_PID_Generation_WS.pdf">Download api</a></li>
+	                		<li><g:link base="http://app.asp.hunteka.hu:5080" controller="eck-validation-servlet" action="index.html">Preview (monguz)</g:link> API document being updated</li>
+	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}">Set Manager (k-int)</g:link> Module home page describes api</li>
+	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}">Statistics (k-int)</g:link> Module home page describes api</li>
+	                		<li><g:link base="http://app.asp.hunteka.hu:5080" controller="eck-validation-servlet" action ="index.html">Validation (monguz)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
+	                		<li><g:link base="http://euinside.semantika.si">Validation (semantika)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
 	            		</ul>
 	          		</div>
 	            Documentation for the Java 7 Client for the ECKCore can be found <g:link base="http://euinside.k-int.com/ECKClient/apidocs">here</g:link>
