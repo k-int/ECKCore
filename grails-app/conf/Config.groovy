@@ -172,14 +172,14 @@ moduleConfiguration {
 	}
 	Validate {
 		internalURL = "http://app.asp.hunteka.hu:5080"
-		internalPath = "/eck-validation-module/profiles"
+		internalPath = "/eck-validation-module/Validation"
 		externalURL = "http://app.asp.hunteka.hu:5080"
-		externalPath = "/eck-validation-module/profiles"
+		externalPath = "/eck-validation-module/Validation"
 	}
 	Validate2 {
 		internalURL = "http://euinside.semantika.si"
-		internalPath = "/validation/xml"
+		internalPath = "/Validation"
 		externalURL = "http://euinside.semantika.si"
-		externalPath = "/validation/xml"
+		externalPath = "/Validation"
 	}
 }
