@@ -206,8 +206,13 @@ class ModulesService {
 		}
 
 		if (httpResponse.statusLine.statusCode == HttpServletResponse.SC_OK) {
-			// We should have a content type if everything was OK
-			result.contentType = httpResponse.getContentType();
+			if (content == null) {
+				// No content
+				result.contentType = null;
+			} else {
+				// We should have a content type if everything was OK
+				result.contentType = httpResponse.getContentType();
+			}
 		}
 		return(result);
 	}

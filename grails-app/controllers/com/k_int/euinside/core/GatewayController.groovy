@@ -114,7 +114,7 @@ class GatewayController {
 	}
 	
     def validate2PostRelay() {
-		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE2, params, request);
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE2, params, request, true);
 		processResponse(responseValue, ModulesService.MODULE_VALIDATE2);
 	}
 }
