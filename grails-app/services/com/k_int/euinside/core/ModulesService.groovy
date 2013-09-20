@@ -19,6 +19,7 @@ class ModulesService {
 	public static String MODULE_CORE                = "Core";
 	public static String MODULE_DATA_TRANSFORMATION = "DataTransformation"; // Libis
 	public static String MODULE_DEFINITION          = "Definition";
+	public static String MODULE_EUROPEANA           = "Europeana";
 	public static String MODULE_PID_GENERATE        = "PIDGenerate";        // Semantika
 	public static String MODULE_PREVIEW             = "Preview";
 	public static String MODULE_SET_MANAGER         = "SetManager";
@@ -85,6 +86,10 @@ class ModulesService {
 	
 	public static String getDefinitionModuleCode() {
 		return(MODULE_DEFINITION);
+	}
+	
+	public static String getEuropeanaModuleCode() {
+		return(MODULE_EUROPEANA);
 	}
 	
 	public static String getPreviewModuleCode() {
@@ -211,7 +216,19 @@ class ModulesService {
 				result.contentType = null;
 			} else {
 				// We should have a content type if everything was OK
-				result.contentType = httpResponse.getContentType();
+				try {
+					result.contentType = httpResponse.getContentType();
+				} catch (IllegalArgumentException e) {
+					// if the Content-Transfer-Encoding is binary, then we shall assume application/zip
+					def headers = httpResponse.getHeaders("Content-Transfer-Encoding");
+					if (headers != null) {
+						headers.each() {
+							if (it.getValue() == "binary") {
+								result.contentType = "application/zip";
+							}
+						}
+					}
+				}
 			}
 		}
 		return(result);
