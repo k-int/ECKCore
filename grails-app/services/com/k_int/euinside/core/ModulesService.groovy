@@ -12,6 +12,9 @@ import org.apache.http.entity.mime.content.ByteArrayBody
 import org.apache.http.entity.mime.content.StringBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import org.apache.http.entity.mime.MultipartEntity
+import org.apache.http.HttpVersion;
+import org.apache.http.message.BasicStatusLine;
+
 
 class ModulesService {
 	def grailsApplication
@@ -321,64 +324,70 @@ class ModulesService {
 		http.parser.'application/xml' = http.parser.'text/plain';
 		http.parser.'text/xml' = http.parser.'text/plain';
 		http.parser.'text/html' = http.parser.'text/plain';
-		
-		http.request(method) { req ->
-			def entity = null;
-			def contentType = ContentType.MULTIPART_FORM_DATA;
-			 
-			// For Libis everything has to be posted ...
-			if (treatEverythingAsFormData) {
-				// Build up the file parts
-				entity = buildMultiPartFilesEntity(multiPartFiles);				
 
-				// We now need to deal with the query arguments
-				addArgumentsToEntity(entity, queryArguments);
-			} else {
-				// Only add the file contents, if we have been supplied with them
-				if ((multiPartFiles != null) && !multiPartFiles.isEmpty()) {
-					// If we only have 1 file then do not send it as a form unless we are told to do so
-					if (multiPartFiles.size() == 1) {
-						// We only have 1 file so set that directly to the body
-						multiPartFiles.each() {parameterName, multiPartFile ->
-							// Do we need to set the content type twice ????
-							contentType = multiPartFile.contentType
-													
+		try {		
+			http.request(method) { req ->
+				def entity = null;
+				def contentType = ContentType.MULTIPART_FORM_DATA;
+				 
+				// For Libis everything has to be posted ...
+				if (treatEverythingAsFormData) {
+					// Build up the file parts
+					entity = buildMultiPartFilesEntity(multiPartFiles);				
+	
+					// We now need to deal with the query arguments
+					addArgumentsToEntity(entity, queryArguments);
+				} else {
+					// Only add the file contents, if we have been supplied with them
+					if ((multiPartFiles != null) && !multiPartFiles.isEmpty()) {
+						// If we only have 1 file then do not send it as a form unless we are told to do so
+						if (multiPartFiles.size() == 1) {
 							// We only have 1 file so set that directly to the body
-							entity = new ByteArrayEntity(multiPartFile.bytes, ContentType.parse(multiPartFile.contentType));
+							multiPartFiles.each() {parameterName, multiPartFile ->
+								// Do we need to set the content type twice ????
+								contentType = multiPartFile.contentType
+														
+								// We only have 1 file so set that directly to the body
+								entity = new ByteArrayEntity(multiPartFile.bytes, ContentType.parse(multiPartFile.contentType));
+							}
+						} else {
+							// Build up the file parts
+							entity = buildMultiPartFilesEntity(multiPartFiles);				
 						}
-					} else {
-						// Build up the file parts
-						entity = buildMultiPartFilesEntity(multiPartFiles);				
 					}
+						
+					// add all the arguments
+					uri.query = queryArguments;
 				}
-					
-				// add all the arguments
-				uri.query = queryArguments;
+	
+				// Set the content type of the request			
+				requestContentType : contentType;
+				
+				// If we have an entity then set it
+				if (entity != null) {
+					// Now we can add the parts to the request
+					req.setEntity(entity);
+				}
+				
+				// Set the Accept header
+				headers.'Accept' = requestObject.getHeader("Accept");
+				
+				// Deal with the response
+				response.success = { httpResponse, content ->
+					result = processResponse(httpResponse, content);
+				}
+				
+				// handler for any failure status code:
+				response.failure = { httpResponse, content ->
+					result = processResponse(httpResponse, content);
+				}
 			}
-
-			// Set the content type of the request			
-			requestContentType : contentType;
-			
-			// If we have an entity then set it
-			if (entity != null) {
-				// Now we can add the parts to the request
-				req.setEntity(entity);
-			}
-			
-			// Set the Accept header
-			headers.'Accept' = requestObject.getHeader("Accept");
-			
-			// Deal with the response
-			response.success = { httpResponse, content ->
-				result = processResponse(httpResponse, content);
-			}
-			
-			// handler for any failure status code:
-			response.failure = { httpResponse, content ->
-				result = processResponse(httpResponse, content);
-			}
+		} catch (ConnectException e) {
+			result = [ : ];
+			result.content = null;
+			result.status = new BasicStatusLine(HttpVersion.HTTP_1_1, HttpServletResponse.SC_GATEWAY_TIMEOUT, "Timeout");
+			result.contentBytes = null;
 		}
-	   
 		return(result);
 	}
 
