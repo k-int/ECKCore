@@ -13,6 +13,10 @@ class UrlMappings {
 			controller = "gateway"
 			action = [GET : "definitionGetRelay", POST : "definitionPostRelay"]
 		}
+		"/Europeana/$path**" {
+			controller = "gateway"
+			action = [GET : "europeanaGetRelay", POST : "europeanaPostRelay"]
+		}
 		"/PIDGenerate/$path**" {
 			controller = "gateway"
 			action = [GET : "pidGenerateGetRelay", POST : "pidGeneratePostRelay"]

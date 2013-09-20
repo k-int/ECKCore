@@ -122,6 +122,13 @@ moduleConfiguration {
 		externalURL = "http://localhost:28081"
 		externalPath = "/ECKDefinition"
 	}
+	// Note: Real url for Europeana is http://europeana.eu/api/v2
+	Europeana {
+		internalURL = "http://testenv-solr.eanadev.org:9191"
+		internalPath = "/api2"
+		externalURL = "http://testenv-solr.eanadev.org:9191"
+		externalPath = "/api2"
+	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
 		internalPath = "/pid"

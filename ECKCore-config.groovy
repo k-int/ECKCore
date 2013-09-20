@@ -7,6 +7,8 @@ modules {
 	}
 	Definition {
 	}
+	Europeana {
+	}
 	PIDGenerate {
 	}
 	Preview {
