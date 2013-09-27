@@ -17,8 +17,8 @@ class GatewayController {
 			
 			if ((contentType != null) && (responseValue.contentBytes != null)) {
 				// if the content type is html, then we need to modify the urls contained in the html
-				String html = new String(responseValue.contentBytes, "UTF-8");
 				if (contentType.contains("html")) {
+					String html = new String(responseValue.contentBytes, "UTF-8");
 					html = ModulesService.replacePathInHtml(module, html);
 					render(text : html, contentType : contentType, encoding : "UTF-8");
 				} else {
@@ -114,7 +114,7 @@ class GatewayController {
 	}
 	
     def validatePostRelay() {
-		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE, params, request);
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE, params, request, true);
 		processResponse(responseValue, ModulesService.MODULE_VALIDATE);
 	}
 

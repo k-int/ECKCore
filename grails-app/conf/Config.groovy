@@ -125,9 +125,13 @@ moduleConfiguration {
 	// Note: Real url for Europeana is http://europeana.eu/api/v2
 	Europeana {
 		internalURL = "http://testenv-solr.eanadev.org:9191"
-		internalPath = "/api2"
+		internalPath = "/api/v2"
 		externalURL = "http://testenv-solr.eanadev.org:9191"
-		externalPath = "/api2"
+		externalPath = "/api/v2"
+		parameters {
+			id = ""
+			wskey = ""
+		}
 	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
@@ -140,11 +144,12 @@ moduleConfiguration {
 			recordType = ""
 		}
 	}
+	http://euinside.asp.monguz.hu/eck-preview-module/
 	Preview {
-		internalURL = "http://app.asp.hunteka.hu:5080"
-		internalPath = "/eck-preview-module/templates"
-		externalURL = "http://app.asp.hunteka.hu:5080"
-		externalPath = "/eck-preview-module/templates"
+		internalURL = "http://euinside.asp.monguz.hu"
+		internalPath = "/eck-preview-module/Preview"
+		externalURL = "http://euinside.asp.monguz.hu"
+		externalPath = "/eck-preview-module/Preview"
 	}
 	SetManager {
 		internalURL = "http://localhost:28082"
@@ -178,9 +183,9 @@ moduleConfiguration {
 		}
 	}
 	Validate {
-		internalURL = "http://app.asp.hunteka.hu:5080"
+		internalURL = "http://euinside.asp.monguz.hu"
 		internalPath = "/eck-validation-module/Validation"
-		externalURL = "http://app.asp.hunteka.hu:5080"
+		externalURL = "http://euinside.asp.monguz.hu"
 		externalPath = "/eck-validation-module/Validation"
 	}
 	Validate2 {

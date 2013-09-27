@@ -27,10 +27,10 @@
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}">Metadata Definition (k-int)</g:link> Module home page describes api</li>
 	                		<li>Europeana Statistics (part of the Europeana API, the features we make use are datasets and providers)</li>
 	                		<li><g:link base="http://euinside.semantika.si" controller="pid" action="Generate">PID Generation (semantika)</g:link> <a href="/ECKCore/static/docs/Semantika_EU_Inside_PID_Generation_WS.pdf">Download api</a></li>
-	                		<li><g:link base="http://app.asp.hunteka.hu:5080" controller="eck-validation-servlet" action="index.html">Preview (monguz)</g:link> API document being updated</li>
+	                		<li><g:link base="http://euinside.asp.monguz.hu" controller="eck-preview-servlet" action="index.html">Preview (monguz)</g:link><a href="/ECKCore/static/docs/preview-rest-api-MON.pdf">Download api</a></li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}">Set Manager (k-int)</g:link> Module home page describes api</li>
 	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}">Statistics (k-int)</g:link> Module home page describes api</li>
-	                		<li><g:link base="http://app.asp.hunteka.hu:5080" controller="eck-validation-servlet" action ="index.html">Validation (monguz)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
+	                		<li><g:link base="http://euinside.asp.monguz.hu" controller="eck-validation-servlet" action ="index.html">Validation (monguz)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
 	                		<li><g:link base="http://euinside.semantika.si">Validation (semantika)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
 	            		</ul>
 	          		</div>

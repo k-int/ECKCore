@@ -153,10 +153,13 @@ class ModulesService {
 	 * 
 	 * @return The url where the module lives
 	 */
-	private def determineURL(module, urlPath) {
+	private def determineURL(module, urlPath, appendJsonToURL) {
 		String url = modules[module].internalURL + modules[module].internalPath;
 		if ((urlPath != null) && !urlPath.isEmpty()) {
 			url += "/" + urlPath;
+		}
+		if (appendJsonToURL) {
+			url += ".json";
 		}
 		return(url);
 	} 
@@ -221,6 +224,10 @@ class ModulesService {
 				// We should have a content type if everything was OK
 				try {
 					result.contentType = httpResponse.getContentType();
+					if (result.contentType.equals("application/octet-stream")) {
+						// Assume it is a zip file
+						result.contentType = "application/zip";
+					}
 				} catch (IllegalArgumentException e) {
 					// if the Content-Transfer-Encoding is binary, then we shall assume application/zip
 					def headers = httpResponse.getHeaders("Content-Transfer-Encoding");
@@ -250,7 +257,24 @@ class ModulesService {
 	 *                 contentType ... The type of the content
 	 */
 	def httpGet(module, parameters, requestObject) {
-		return(http(module, parameters, requestObject, Method.GET, false));
+		return(httpGet(module, parameters, requestObject, false));
+	}
+
+	/**
+	 * Performs a gateway GET request
+	 * 	
+	 * @param module .......... The module we are performing the gateway operation for 
+	 * @param parameters ...... Query parameters that may need passing onto the module
+	 * @param requestObject ... The original request object, required for passing through any posted files
+	 * @param appendJsonToURL ... if true we append ".json" to the url
+	 * 
+	 * @return ... A map that contains the following obects
+	 *                 content ....... The returned content
+	 *                 status ........ The status line
+	 *                 contentType ... The type of the content
+	 */
+	def httpGet(module, parameters, requestObject, appendJsonToURL) {
+		return(http(module, parameters, requestObject, Method.GET, false, appendJsonToURL));
 	}
 
 	/**
@@ -267,7 +291,7 @@ class ModulesService {
 	 *                 contentType ... The type of the content
 	 */
 	def httpPost(module, parameters, requestObject, treatEverythingAsFormData) {
-		return(http(module, parameters, requestObject, Method.POST, treatEverythingAsFormData));
+		return(http(module, parameters, requestObject, Method.POST, treatEverythingAsFormData, false));
 	}
 
 	/**
@@ -300,10 +324,10 @@ class ModulesService {
 	 *                 status ........ The status line
 	 *                 contentType ... The type of the content
 	 */
-	private def http(module, parameters, requestObject, method, treatEverythingAsFormData) {
+	private def http(module, parameters, requestObject, method, treatEverythingAsFormData, appendJsonToURL) {
 		def result = null;
 		
-		def url = determineURL(module, parameters.path);
+		def url = determineURL(module, parameters.path, appendJsonToURL);
 		def queryArguments = createURLArgs(module, parameters);
 		log.debug("making HTTP call to url: " + url);
 
