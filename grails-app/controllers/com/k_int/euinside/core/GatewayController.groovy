@@ -59,7 +59,7 @@ class GatewayController {
 	}
 	
     def europeanaGetRelay() {
-		def responseValue = ModulesService.httpGet(ModulesService.MODULE_EUROPEANA, params, request);
+		def responseValue = ModulesService.httpGet(ModulesService.MODULE_EUROPEANA, params, request, true);
 		processResponse(responseValue, ModulesService.MODULE_EUROPEANA);
 	}
 	
