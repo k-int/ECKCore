@@ -209,7 +209,7 @@ class ModulesService {
 		if (content != null) {
 			if (content instanceof java.io.Reader) {
 				// Turn the response into a byte array
-				result.contentBytes = IOUtils.toByteArray(content, "UTF-8");
+				result.contentBytes = IOUtils.toByteArray(content);
 			} else if (content instanceof java.io.InputStream) {
 				// Slightly different conersion in this case
 				result.contentBytes = IOUtils.toByteArray(content);
