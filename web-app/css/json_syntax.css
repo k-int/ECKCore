@@ -1,0 +1,26 @@
+.jsonSyntax {
+	outline: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px;
+}
+
+.jsonBoolean {
+	color: blue;
+}
+
+.jsonKey {
+	color: red;
+}
+
+.jsonNull {
+	color: magenta;
+}
+
+.jsonNumber {
+	color: darkorange;
+}
+
+.jsonString {
+	color: green;
+}
+
