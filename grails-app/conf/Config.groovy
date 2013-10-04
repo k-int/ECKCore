@@ -144,7 +144,6 @@ moduleConfiguration {
 			recordType = ""
 		}
 	}
-	http://euinside.asp.monguz.hu/eck-preview-module/
 	Preview {
 		internalURL = "http://euinside.asp.monguz.hu"
 		internalPath = "/eck-preview-module/Preview"

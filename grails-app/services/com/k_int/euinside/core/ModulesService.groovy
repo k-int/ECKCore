@@ -3,6 +3,8 @@ package com.k_int.euinside.core
 import groovyx.net.http.Method
 import groovyx.net.http.HTTPBuilder;
 
+import java.nio.charset.Charset;
+ 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
@@ -29,6 +31,7 @@ class ModulesService {
 	public static String MODULE_STATISTICS          = "Statistics";
 	public static String MODULE_VALIDATE            = "Validate";    // monguz validation
 	public static String MODULE_VALIDATE2           = "Validate2";   // semantika validation
+	public static Charset UTF8 = Charset.forName("UTF-8");
 	
 	private static def modules;
 	private static String corePath;
@@ -209,7 +212,7 @@ class ModulesService {
 		if (content != null) {
 			if (content instanceof java.io.Reader) {
 				// Turn the response into a byte array
-				result.contentBytes = IOUtils.toByteArray(content);
+				result.contentBytes = IOUtils.toByteArray(content, UTF8);
 			} else if (content instanceof java.io.InputStream) {
 				// Slightly different conersion in this case
 				result.contentBytes = IOUtils.toByteArray(content);
