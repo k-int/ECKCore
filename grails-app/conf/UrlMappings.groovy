@@ -1,6 +1,10 @@
 class UrlMappings {
 
 	static mappings = {
+		"/DataMapping/$path**" {
+			controller = "gateway"
+			action = [GET : "dataMappingGetRelay", POST : "dataMappingPostRelay"]
+		}
 		"/DataTransformation/$path**" {
 			controller = "gateway"
 			action = [GET : "dataTransformationGetRelay", POST : "dataTransformationPostRelay"]
@@ -16,6 +20,9 @@ class UrlMappings {
 		"/Europeana/$path**" {
 			controller = "gateway"
 			action = [GET : "europeanaGetRelay", POST : "europeanaPostRelay"]
+		}
+		"/help/$action" {
+			controller = "help"
 		}
 		"/PIDGenerate/$path**" {
 			controller = "gateway"

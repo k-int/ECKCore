@@ -21,18 +21,75 @@
 	        	<div class="row">
 	          		<div class="span12">
 	            		<h2>Available Modules</h2>
-	            		<ul>
-	                		<li><g:link base="http://www.heron-net.be/einside_test" controller="dmt.php" action="DataMapping">Data Mapping (libis)</g:link> <a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">Download api</a></li>
-	                		<li><g:link base="http://services.libis.be/euinside" controller="mt.php" action="DataMapping">Data Transformation (libis)</g:link> <a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">Download api</a></li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}">Metadata Definition (k-int)</g:link> Module home page describes api</li>
-	                		<li>Europeana Statistics (part of the Europeana API, the features we make use are datasets and providers)</li>
-	                		<li><g:link base="http://euinside.semantika.si" controller="pid" action="Generate">PID Generation (semantika)</g:link> <a href="/ECKCore/static/docs/Semantika_EU_Inside_PID_Generation_WS.pdf">Download api</a></li>
-	                		<li><g:link base="http://euinside.asp.monguz.hu" controller="eck-preview-servlet" action="index.html">Preview (monguz)</g:link><a href="/ECKCore/static/docs/preview-rest-api-MON.pdf">Download api</a></li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}">Set Manager (k-int)</g:link> Module home page describes api</li>
-	                		<li><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}">Statistics (k-int)</g:link> Module home page describes api</li>
-	                		<li><g:link base="http://euinside.asp.monguz.hu" controller="eck-validation-servlet" action ="index.html">Validation (monguz)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
-	                		<li><g:link base="http://euinside.semantika.si">Validation (semantika)</g:link> <a href="/ECKCore/static/docs/validation-rest-api-common.pdf">Download api</a></li>
-	            		</ul>
+	            		<table>
+	            			<tr>
+	            				<th align="left">Module</th>
+	            				<th align="left">Partner</th>
+	            				<th align="left">API Docs.</th>
+	            				<th align="left">ECKCore interface example</th>
+	            			</tr>
+	            			<tr>
+	            				<td><g:link base="http://www.heron-net.be/einside_test" controller="dmt.php" action="DataMapping">Data Mapping</g:link></td>
+	            				<td>Libis</td>
+	            				<td><a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">api</a></td>
+	            				<td>http://euinside.k-int.com/ECKCore2/DataMapping/Libis/my_tansfer/Transform</td>
+	            			</tr>
+	            			<tr>
+	                			<td><g:link base="http://services.libis.be/euinside" controller="mt.php" action="DataMapping">Data Transformation</g:link></td>
+	                			<td>Libis</td>
+	                			<td><a href="/ECKCore/static/docs/ManualDataMappingTransformationService.doc">api</a></td>
+	            				<td>http://euinside.k-int.com/ECKCore2/DataTransformation/Libis/LeuvenLibData/Transform</td>
+	            			</tr>
+	            			<tr>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}">Metadata Definition</g:link></td>
+	                			<td>k-int</td>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}">api</g:link></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Definition/errors</td>
+	                		</tr>
+	                		<tr>
+	                			<td>Europeana Statistics (datasets)</td>
+	                			<td>Europeana</td>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/europeana">api</g:link></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Europeana/providers.json?wskey=xxx</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="http://euinside.semantika.si" controller="pid" action="Generate">PID Generation</g:link></td>
+	                			<td>Semantika</td>
+	                			<td><a href="/ECKCore/static/docs/Semantika_EU_Inside_PID_Generation_WS.pdf">api</a></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/PIDGenerate/generate</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="http://euinside.asp.monguz.hu" controller="eck-preview-servlet" action="index.html">Preview</g:link></td>
+	                			<td>Monguz</td>
+	                			<td><a href="/ECKCore/static/docs/preview-rest-api-MON.pdf">api</a></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Preview/chas/single/preview/lido</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}">Set Manager</g:link></td>
+	                			<td>k-int</td>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}">api</g:link></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/SetManager/Set/chas/second/update</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}">Statistics</g:link></td>
+	                			<td>k-int</td>
+	                			<td><g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}">api</g:link></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Statistics/setManager/commit/update</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="http://euinside.asp.monguz.hu" controller="eck-validation-servlet" action ="index.html">Validation</g:link></td>
+	                			<td>Monguz</td>
+	                			<td><a href="/ECKCore/static/docs/validation-rest-api-common.pdf">api</a></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Validate/CultureGrid/single/validate/lido</td>
+	                		</tr>
+	                		<tr>
+	                			<td><g:link base="http://euinside.semantika.si">Validation</g:link></td>
+	                			<td>Semantika</td>
+	                			<td><a href="/ECKCore/static/docs/validation-rest-api-common.pdf">api</a></td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Validate2/CultureGrid/single/validate/lido</td>
+	                		</tr>
+	            		</table>
+	          		<br/>
 	          		</div>
 	            Documentation for the Java 7 Client for the ECKCore can be found <g:link base="http://euinside.k-int.com/ECKClient/apidocs">here</g:link>
 		        </div>

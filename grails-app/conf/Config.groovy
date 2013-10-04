@@ -104,6 +104,17 @@ moduleConfiguration {
 		externalURL = "http://localhost:8080"
 		externalPath = "/ECKCore"
 	}
+	DataMapping {
+		internalURL = " http://www.heron-net.be"
+		internalPath = "/einside_test/dmt.php/DataMapping"
+		externalURL = " http://www.heron-net.be"
+		externalPath = "/einside_test/dmt.php/DataMapping"
+		parameters {
+			sourceFormat = ""
+			targetFormat = ""
+			request_id = ""
+		}
+	}
 	DataTransformation {
 		internalURL = "http://services.libis.be"
 		internalPath = "/euInside/dmt.php/DataMapping"

@@ -38,6 +38,16 @@ class GatewayController {
 		}
 	}
 	
+    def dataMappingGetRelay() {
+		def responseValue = ModulesService.httpGet(ModulesService.MODULE_DATA_MAPPING, params, request);
+		processResponse(responseValue, ModulesService.MODULE_DATA_MAPPING);
+	}
+	
+    def dataMappingPostRelay() {
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_DATA_MAPPING, params, request, true);
+		processResponse(responseValue, ModulesService.MODULE_DATA_MAPPING);
+	}
+	
     def dataTransformationGetRelay() {
 		def responseValue = ModulesService.httpGet(ModulesService.MODULE_DATA_TRANSFORMATION, params, request);
 		processResponse(responseValue, ModulesService.MODULE_DATA_TRANSFORMATION);

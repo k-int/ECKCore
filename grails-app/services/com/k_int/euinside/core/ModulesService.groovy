@@ -22,6 +22,7 @@ class ModulesService {
 	def grailsApplication
 
 	public static String MODULE_CORE                = "Core";
+	public static String MODULE_DATA_MAPPING        = "DataMapping"; // Libis
 	public static String MODULE_DATA_TRANSFORMATION = "DataTransformation"; // Libis
 	public static String MODULE_DEFINITION          = "Definition";
 	public static String MODULE_EUROPEANA           = "Europeana";
@@ -87,6 +88,10 @@ class ModulesService {
 	}
 	
 	public static String getDataMappingModuleCode() {
+		return(MODULE_DATA_MAPPING);
+	}
+	
+	public static String getDataTransformationModuleCode() {
 		return(MODULE_DATA_TRANSFORMATION);
 	}
 	
