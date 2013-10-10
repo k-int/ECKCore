@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 class GatewayController {
 
+	def AggregatorService;
 	def ModulesService;
 
 	private def processResponse(responseValue, module) {
@@ -37,7 +38,12 @@ class GatewayController {
 			render(status: statusCode, text: contentString, contentType: "text/plain", encoding: "UTF-8");
 		}
 	}
-	
+
+	def aggregatorGetRelay() {
+		def responseValue = AggregatorService.execute(params, request);
+		processResponse(responseValue, null);
+	}
+		
     def dataMappingGetRelay() {
 		def responseValue = ModulesService.httpGet(ModulesService.MODULE_DATA_MAPPING, params, request);
 		processResponse(responseValue, ModulesService.MODULE_DATA_MAPPING);
@@ -124,7 +130,7 @@ class GatewayController {
 	}
 	
     def validatePostRelay() {
-		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE, params, request, true);
+		def responseValue = ModulesService.httpPost(ModulesService.MODULE_VALIDATE, params, request, false);
 		processResponse(responseValue, ModulesService.MODULE_VALIDATE);
 	}
 

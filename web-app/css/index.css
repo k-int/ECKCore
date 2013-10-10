@@ -1,0 +1,54 @@
+// These are used in the tables used for the parameters and url parts
+table.parameters {
+	border-width: 4px;
+	border-spacing: 2px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+}
+
+table.parameters th {
+	border-width: 4px;
+	padding: 1px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: ;
+}
+
+table.parameters td {
+	border-width: 1px;
+	padding: 4px;
+	border-style: dotted;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: ;
+}
+
+// The following are used in the json syntax colouring
+pre {
+	outline: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px;
+}
+
+.string {
+	color: green;
+}
+
+.number {
+	color: darkorange;
+}
+
+.boolean {
+	color: blue;
+}
+
+.null {
+	color: magenta;
+}
+
+.key {
+	color: red;
+}

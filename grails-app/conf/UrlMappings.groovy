@@ -1,6 +1,10 @@
 class UrlMappings {
 
 	static mappings = {
+		"/Aggregator/$providerCode/$collectionCode/statistics/$aggregatorName" {
+			controller = "gateway"
+			action = [GET : "aggregatorGetRelay"]
+		}
 		"/DataMapping/$path**" {
 			controller = "gateway"
 			action = [GET : "dataMappingGetRelay", POST : "dataMappingPostRelay"]
@@ -43,6 +47,9 @@ class UrlMappings {
 		"/Statistics/$path**" {
 			controller = "gateway"
 			action = [GET : "statisticsGetRelay", POST : "statisticsPostRelay"]
+		}
+		"/Test/$action" {
+			controller = "test"
 		}
 		"/Validation/$path**" {
 			controller = "gateway"

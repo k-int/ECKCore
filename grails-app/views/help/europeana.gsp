@@ -1,8 +1,9 @@
+<% def ModulesService = application.getAttribute("org.codehaus.groovy.grails.APPLICATION_CONTEXT").getBean("modulesService") %>
 <!doctype html>
 <html>
   	<head>
 	    <meta name="layout" content="bootstrap"/>
-	    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'json_syntax.css')}" />
+		<link rel="stylesheet" href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/static/css/index.css" type="text/css">
 	    <title>Europeana - DataSets</title>
   	</head>
 
@@ -43,9 +44,8 @@
        			</div>
 		    </section>
     	</div>
-    
-		<script src="/ECKCore/js/json_syntax.js" type="text/javascript"></script>
-		
+
+		<script src="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/static/js/json_syntax.js" type="text/javascript"></script>
 	    <script type="text/javascript">
 		    $(document).ready(function (){
 		    	var datasetResponse = {"action":"/v2/datasets/provider_id.json","success":true,"statsStartTime":1380903028655,"statsDuration":1238,"itemsCount":2,"totalResults":2,"items":[{"success":true,"identifier":"00501","name":"00501_L_GR_UniPatras_kosmopolis_dc","description":"Hidden","status":"Ingestion complete","publishedRecords":"40366","deletedRecords":"Not implemented yet"},{"success":true,"identifier":"00502","name":"00502_L_GR_UniPatras_pleias_dc","description":"Hidden","status":"Disabled and Replaced","publishedRecords":"34085","deletedRecords":"Not implemented yet"}]};

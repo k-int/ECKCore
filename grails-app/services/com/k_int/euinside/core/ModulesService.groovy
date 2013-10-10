@@ -50,17 +50,17 @@ class ModulesService {
 			// Is it a module we know abount
 			def module = modules[it.key];
 			if (module.isEmpty()) {
-				log.error("Unknown module in the configuration: \"" + it.key + "\"");
-				modules.remove(it.key);
-			} else {
-				// The 4 settings the site can set are internalURL, internalPath, externalURL and externalPath 
-				log.info("Using local information for module: \"" + it.key + "\"");
-				it.value.each() { key, value ->
-					if (value instanceof String) {
-						log.info("Setting " + key + " to: \"" + value + "\"");
-						module[key] = value;
-					}
-				}
+				log.info("Adding new module in configuration: \"" + it.key + "\"");
+				module = [ : ];
+				modules[it.key] = module;
+			}
+			
+			log.info("Using local information for module: \"" + it.key + "\"");
+			it.value.each() { key, value ->
+//				if (value instanceof String) {
+					log.info("Setting " + key + " to: \"" + value.toString() + "\"");
+					module[key] = value;
+//				}
 			}
 		}
 			
@@ -72,8 +72,8 @@ class ModulesService {
 			it.value.each () { key, value ->
 				if (value instanceof String) {
 					log.debug(key + ": \"" + value + "\"");
-				} else {
-					value.keySet().each { parameter ->
+				} else if (key.equals("parameters")) {
+					value.each() { parameter ->
 						log.debug("Parameter: \"" + parameter + "\"");
 					}
 				}
@@ -143,7 +143,7 @@ class ModulesService {
 		def arguments = [ : ];
 		def moduleParameters = modules[module].parameters;
 		if (moduleParameters != null) {
-			moduleParameters.keySet().each {
+			moduleParameters.each() {
 				def value = parameters.getAt(it);
 				if (value != null) {
 					arguments.putAt(it, value);

@@ -2,12 +2,9 @@
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-grails.config.locations = [ "classpath:${appName}-config.properties",
-                             "classpath:${appName}-config.groovy",
-                             "file:./${appName}-config.properties",
-                             "file:./${appName}-config.groovy",
-                             "file:${userHome}/.grails/${appName}-config.properties",
-                             "file:${userHome}/.grails/${appName}-config.groovy"]
+grails.config.locations = ["classpath:${appName}-config.groovy",
+                           "file:./${appName}-config.groovy",
+                           "file:${userHome}/.grails/${appName}-config.groovy"]
 
 if (System.properties["${appName}.config.location"]) {
     grails.config.locations << "file:" + System.properties["${appName}.config.location"]
@@ -104,28 +101,42 @@ moduleConfiguration {
 		externalURL = "http://localhost:8080"
 		externalPath = "/ECKCore"
 	}
+	CultureGridLive {
+		internalURL = "http://www.culturegrid.org.uk"
+		internalPath = ""
+		externalURL = "http://www.culturegrid.org.uk"
+		externalPath = ""
+	}
+	CultureGridTest {
+		internalURL = "http://testing.culturegrid.org.uk"
+		internalPath = ""
+		externalURL = "http://testing.culturegrid.org.uk"
+		externalPath = ""
+	}
+	DarkAggregator {
+		internalURL = "http://euinside.k-int.com"
+		internalPath = ""
+		externalURL = "http://euinside.k-int.com"
+		externalPath = ""
+	}
 	DataMapping {
-		internalURL = " http://www.heron-net.be"
+		internalURL = "http://www.heron-net.be"
 		internalPath = "/einside_test/dmt.php/DataMapping"
 		externalURL = " http://www.heron-net.be"
 		externalPath = "/einside_test/dmt.php/DataMapping"
-		parameters {
-			sourceFormat = ""
-			targetFormat = ""
-			request_id = ""
-		}
+		parameters = ["sourceFormat",
+					  "targetFormat",
+					  "request_id"]
 	}
 	DataTransformation {
 		internalURL = "http://services.libis.be"
 		internalPath = "/euInside/dmt.php/DataMapping"
 		externalURL = "http://services.libis.be"
 		externalPath = "/euInside/dmt.php/DataMapping"
-		parameters {
-			mappingRules = ""
-			sourceFormat = ""
-			targetFormat = ""
-			request_id = ""
-		}
+		parameters = ["mappingRules",
+					  "sourceFormat",
+					  "targetFormat",
+					  "request_id"]
 	}
 	Definition {
 		internalURL = "http://localhost:28081"
@@ -139,21 +150,17 @@ moduleConfiguration {
 		internalPath = "/api/v2"
 		externalURL = "http://testenv-solr.eanadev.org:9191"
 		externalPath = "/api/v2"
-		parameters {
-			id = ""
-			wskey = ""
-		}
+		parameters = ["id",
+					  "wskey"]
 	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
 		internalPath = "/pid"
 		externalURL = "http://euinside.semantika.si"
 		externalPath = "/pid"
-		parameters {
-			accessionNumber = ""
-			institutionUrl = ""
-			recordType = ""
-		}
+		parameters = ["accessionNumber",
+					  "institutionUrl",
+					  "recordType"]
 	}
 	Preview {
 		internalURL = "http://euinside.asp.monguz.hu"
@@ -166,31 +173,27 @@ moduleConfiguration {
 		internalPath = "/ECKSetManager"
 		externalURL = "http://localhost:28082"
 		externalPath = "/ECKSetManager"
-		parameters {
-			delete = ""
-			deleteAll = ""
-			historyItems = ""
-			recordId = ""
-			setDescription = ""
-			statisticsDetails = ""
-		}
+		parameters = ["delete",
+					  "deleteAll",
+					  "historyItems",
+					  "recordId",
+					  "setDescription",
+					  "statisticsDetails"]
 	}
 	Statistics {
 		internalURL = "http://localhost:28085"
 		internalPath = "/ECKStatistics"
 		externalURL = "http://localhost:28085"
 		externalPath = "/ECKStatistics"
-		parameters {
-			dateTime = ""
-			days = ""
-			duration = ""
-			itemsProcessed = ""
-			limit = ""
-			numberFailed = ""
-			numberSuccessful = ""
-			offset = ""
-			queryType = ""
-		}
+		parameters =["dateTime",
+				     "days",
+					 "duration",
+					 "itemsProcessed",
+					 "limit",
+					 "numberFailed",
+					 "numberSuccessful",
+					 "offset",
+					 "queryType"]
 	}
 	Validate {
 		internalURL = "http://euinside.asp.monguz.hu"
@@ -203,5 +206,28 @@ moduleConfiguration {
 		internalPath = "/Validation"
 		externalURL = "http://euinside.semantika.si"
 		externalPath = "/Validation"
+	}
+}
+
+aggregatorConfiguration {
+	CultureGridLive {
+		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+		moduleName = "CultureGridLive"
+	}
+	CultureGridTest {
+		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+		moduleName = "CultureGridTest"
+	}
+	DarkAggregator {
+		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+		moduleName = "DarkAggregator"
+	}
+	Europeana {
+		path = "datasets/provider_id.json"
+		moduleName = "Europeana"
+		Parameters {
+			id = "\$(PROVIDER)"
+			wskey = "api2demo"
+		}
 	}
 }
