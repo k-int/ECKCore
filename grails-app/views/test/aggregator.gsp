@@ -18,7 +18,7 @@
 		  		</div>
 		  
 			  	<div class="row">
-			  		<h4>All fields need to be filled out, if you do not have a provider or collection, enter *</h4>
+			  		<h4>All fields need to be filled out, if you do not have a provider code or collection code, enter *</h4>
 			     	<div class="span12">
 		           		<table>
 		               		<tr>
@@ -50,7 +50,6 @@
 			     	</div>
 		  		</div>
       		</section>
-
     	</div>
     
     	<script type="text/javascript">

@@ -1,3 +1,4 @@
+<% def ModulesService = application.getAttribute("org.codehaus.groovy.grails.APPLICATION_CONTEXT").getBean("modulesService") %>
 <!doctype html>
 <html>
   	<head>
@@ -52,7 +53,7 @@
 						<p>The possible parameters are defined by the aggregator as the values supplied will just be passed on</p>
 								
 	            		<h4>Testing</h4>
-	            		<p>A simple test form for the Aggregator interface is available at <a href="/ECKCore/Test/aggregator">here</a></p>
+	            		<p>A simple test form for the Aggregator interface is available at <a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Test/aggregator">here</a></p>
 	          		</div>
 	        	</div>
 	      	</section>
