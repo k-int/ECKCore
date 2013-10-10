@@ -230,4 +230,8 @@ aggregatorConfiguration {
 			wskey = "api2demo"
 		}
 	}
+	SetManager {
+		path = "Set/\$(PROVIDER)/\$(COLLECTION)/statistics"
+		moduleName = "SetManager"
+	}
 }
