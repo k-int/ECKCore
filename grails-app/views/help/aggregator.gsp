@@ -3,7 +3,7 @@
 <html>
   	<head>
     	<meta name="layout" content="bootstrap"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'index.css')}" type="text/css">
+		<link rel="stylesheet" href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/static/css/index.css" type="text/css">
     	<title>ECKCore - Aggregator</title>
   	</head>
 

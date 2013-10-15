@@ -43,11 +43,15 @@
 
           			<div class="nav-collapse">
             			<ul class="nav">              
+	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/core">Core</a></li>
+	                		<li><a href="http://www.heron-net.be/einside_test/dmt.php/DataMapping">Data Mapping</a></li>
+	                		<li><a href="http://services.libis.be/euinside/mt.php/DataMapping">Data Transformation</a></li>
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}/">Metadata Definition</a></li>
 	                		<li><a href="http://euinside.semantika.si/pid/Generate">PID Generation</a></li>
-	                		<li><a href="http://app.asp.hunteka.hu:5080/eck-preview-servlet/index.html">Preview</a></li>
+	                		<li><a href="http://euinside.asp.monguz.hu/eck-preview-servlet/index.html">Preview</a></li>
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}/">Set Manager</a></li>
-	                		<li><a href="http://app.asp.hunteka.hu:5080/eck-validation-servlet/index.html">Validation (monguz)</a></li>
+	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}/">Statistics</a></li>
+	                		<li><a href="http://euinside.asp.monguz.hu/eck-validation-servlet/index.html">Validation (monguz)</a></li>
 	                		<li><a href="http://euinside.semantika.si/">Validation (semantika)</a></li>
             			</ul>
           			</div>
