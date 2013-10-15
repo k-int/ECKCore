@@ -18,7 +18,7 @@
 		  		</div>
 		  
 			  	<div class="row">
-			  		<h4>All fields need to be filled out, if you do not have a provider code or collection code, enter *</h4>
+			  		<h4>All fields need to be filled out, if a provider code or collection code is not relevant for the selected aggregator, enter *</h4>
 			     	<div class="span12">
 		           		<table>
 		               		<tr>
@@ -38,6 +38,10 @@
 										</g:each>
 									</select>
 								</td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Output Raw Data: </th>
+		                   		<td><g:field type="checkbox" name="rawData"/></td>
 		               		</tr>
 		               		<tr>
 		                   		<td colspan="2">
@@ -61,6 +65,9 @@
 			    } else {
 			    	var url = "${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Aggregator/";
 			    	url += $("#providerCode").val() + "/" + $("#collectionCode").val() + "/statistics/" + $("#aggregator").val();
+			    	if ($("#rawData").attr("checked") == "checked") {
+				    	url += "?rawRequired=yes";
+				    }
 			    	window.location = url;   
 				}
 	    	});
