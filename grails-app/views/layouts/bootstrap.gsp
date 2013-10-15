@@ -39,7 +39,7 @@
             			<span class="icon-bar"></span>
           			</a>
           
-          			<a class="brand" href="${createLink(uri: '/')}">ECKCore</a>
+          			<a class="brand" href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}">ECKCore</a>
 
           			<div class="nav-collapse">
             			<ul class="nav">              
