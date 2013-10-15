@@ -17,7 +17,6 @@ import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.HttpVersion;
 import org.apache.http.message.BasicStatusLine;
 
-
 class ModulesService {
 	def grailsApplication
 

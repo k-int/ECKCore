@@ -1,5 +1,11 @@
 package com.k_int.euinside.core
 
+import java.nio.charset.Charset;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.k_int.euinside.client.json.ClientJSON;
+
 class AggregatorService {
 
 	def grailsApplication
@@ -72,7 +78,47 @@ class AggregatorService {
 				}
 			}
 
-			return(ModulesService.httpGet(moduleName, parameters, requestObject, false));
+			// Go away get the response from the aggregator
+			def responseValue = ModulesService.httpGet(moduleName, parameters, requestObject, false);
+			
+			if (responseValue.status.statusCode == HttpServletResponse.SC_OK) {
+				// Can we turn this into a generic statistic response
+				def rawRequired = parameters.rawRequired;
+				if ((rawRequired == null) || !rawRequired.equals("yes")) {
+					// They have not requested the raw response
+					def convertedOutput = null;
+					def classFile = aggregator.statsParser;
+					if (classFile != null) {
+						// A class file has been defined to turn it into a generic stats response
+						try {
+							// Lets see if we can load the class file
+							def classObject = getClass().getClassLoader().loadClass(classFile);
+							if (classObject != null) {
+								// We have loaded it, so lets turn the json into a String and attempt to turn it
+								// into the class object 
+								def json = new String(responseValue.contentBytes, Charset.forName("UTF-8"));
+								if ((json != null) && !json.isEmpty()) {
+									def statsObject = ClientJSON.readJSONString(json, classObject);
+									if (statsObject != null) {
+										// We have successfully interpreted the json, so let us now turn it into aGeneric Stats object
+										try {
+											responseValue.JSONResponse = statsObject.convertToGeneric();
+										} catch (MissingMethodException e) {
+											// That is fine we can ignore the error, just means we will not map it to the generic format
+											log.error("Unable to find method convertToGeneric in class: \"" + classFile + "\"");
+										}
+									}
+								}
+							}
+						} catch (ClassNotFoundException e) {
+							// That is fine we can ignore the error, just means we will not map it to the generic format
+							log.error("Unable to load class file: \"" + classFile + "\"");
+						}
+					} 
+				}
+			}
+				
+			return(responseValue);
 		}
     }
 	

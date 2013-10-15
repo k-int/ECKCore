@@ -13,7 +13,20 @@ class BootStrap {
 				serviceBean.initialise() 
 			} 
 		}
+		
+		def excludeUnimportantFieldsAndNullFields = {it ->
+			return(it.properties.findAll{key, value ->
+				((key != "class") && (key != "logger") && (value != null))
+			});
+		}
+		JSON.registerObjectMarshaller(com.k_int.euinside.client.module.aggregator.generic.GenericStatistic) {
+			excludeUnimportantFieldsAndNullFields(it);
+		}
+		JSON.registerObjectMarshaller(com.k_int.euinside.client.module.aggregator.generic.GenericEuropeanaStatistic) {
+			excludeUnimportantFieldsAndNullFields(it);
+		}
     }
+	
     def destroy = {
     }
 }

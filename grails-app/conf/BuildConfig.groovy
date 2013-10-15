@@ -37,9 +37,10 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-		runtime 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
-		runtime 'org.apache.httpcomponents:httpmime:4.2.3'
-		runtime 'commons-io:commons-io:2.4'
+		compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+		compile 'org.apache.httpcomponents:httpmime:4.2.3'
+		compile 'commons-io:commons-io:2.4'
+		compile "com.k-int.EUInside:ECKClient:0.2-SNAPSHOT"
     }
 
     plugins {

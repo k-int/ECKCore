@@ -132,5 +132,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.grails.ide.eclipse.core.CLASSPATH_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ECKClient"/>
 	<classpathentry kind="output" path="target-eclipse/classes"/>
 </classpath>

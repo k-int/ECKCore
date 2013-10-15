@@ -213,18 +213,22 @@ aggregatorConfiguration {
 	CultureGridLive {
 		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "CultureGridLive"
+		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 	}
 	CultureGridTest {
 		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "CultureGridTest"
+		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 	}
 	DarkAggregator {
 		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "DarkAggregator"
+		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 	}
 	Europeana {
 		path = "datasets/provider_id.json"
 		moduleName = "Europeana"
+		statsParser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
 		Parameters {
 			id = "\$(PROVIDER)"
 			wskey = "api2demo"
@@ -233,5 +237,6 @@ aggregatorConfiguration {
 	SetManager {
 		path = "Set/\$(PROVIDER)/\$(COLLECTION)/statistics"
 		moduleName = "SetManager"
+		statsParser = "com.k_int.euinside.client.module.setmanager.statistics.Statistic"
 	}
 }

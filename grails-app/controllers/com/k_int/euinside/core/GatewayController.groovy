@@ -1,5 +1,7 @@
 package com.k_int.euinside.core
 
+import grails.converters.JSON;
+
 import javax.servlet.http.HttpServletResponse;
 
 class GatewayController {
@@ -41,7 +43,13 @@ class GatewayController {
 
 	def aggregatorGetRelay() {
 		def responseValue = AggregatorService.execute(params, request);
-		processResponse(responseValue, null);
+		def JSONResponse = responseValue.JSONResponse;
+		if (responseValue.JSONResponse == null) {
+			processResponse(responseValue, null);
+		} else {
+			log.info("Mapped agrregator response to a generic response, returning JSON");
+			render JSONResponse as JSON;
+		}
 	}
 		
     def dataMappingGetRelay() {
