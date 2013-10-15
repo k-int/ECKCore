@@ -29,7 +29,7 @@
 	                		<tr>
 	                			<td><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/aggregator">Aggregator</a></td>
 	                			<td>Aggregator</td>
-	                			<td>http://localhost:8080/ECKCore/Aggregator/20223/*/statistics/Europeana</td>
+	                			<td>http://euinside.k-int.com/ECKCore2/Aggregator/20223/*/statistics/Europeana</td>
 	                		</tr>
 	            			<tr>
 	            				<td><a href="http://www.heron-net.be/einside_test/dmt.php/DataMapping">Data Mapping</a></td>
