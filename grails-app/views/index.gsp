@@ -97,7 +97,8 @@
 	            		</table>
 	          		<br/>
 	          		</div>
-	            Documentation for the Java 7 Client for the ECKCore can be found <g:link base="http://euinside.k-int.com/ECKClient/apidocs">here</g:link>
+	          		<p>Links to the test pages can be found <g:link base="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Test/pages">here</g:link></p>
+	            	<p>Documentation for the Java 7 Client for the ECKCore can be found <g:link base="http://euinside.k-int.com/ECKClient/apidocs">here</g:link></p>
 		        </div>
 	    	</section>
     	</div>

@@ -9,4 +9,8 @@ class TestController {
     def europeana() {
 		// No body required as it is all in the view
 	}
+	
+	def pages() {
+		// No body required as it is all in the view
+	}
 }
