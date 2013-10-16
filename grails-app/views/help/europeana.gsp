@@ -19,6 +19,8 @@
         		<div class="row">
           			<div class="span12">
             			<h4>Invocation</h4>
+            			
+            			<p> The URLs for europeana datasets and providers are in the process of changing, when this is complete, I will update the Core</p>
             			<p>To retrieve the data sets for a provider we use the path /datasets/provider_id.json (eg. <a href="http://euinside.k-int.com/ECKCore2/Europeana/datasets/provider_id.json?wskey=xxx&id=5">Example</a>) with the following parameters</p>
 
 						<table class="parameters">
@@ -40,6 +42,9 @@
            
            				<h4>Example response</h4>
            				<pre id="datasetResponse" class="jsonSyntax"></pre>
+	            
+	            		<h4>Testing</h4>
+	            		<p>A simple test form is available <a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Test/europeana">here</a></p>
          			</div>
        			</div>
 		    </section>
