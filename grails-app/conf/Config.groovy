@@ -175,10 +175,17 @@ moduleConfiguration {
 		externalPath = "/ECKSetManager"
 		parameters = ["delete",
 					  "deleteAll",
+					  "from",
 					  "historyItems",
+					  "identifier",
+					  "metadataPrefix",
+					  "resumptionToken",
 					  "recordId",
+					  "set",
 					  "setDescription",
-					  "statisticsDetails"]
+					  "statisticsDetails",
+					  "until",
+					  "verb"]
 	}
 	Statistics {
 		internalURL = "http://localhost:28085"
