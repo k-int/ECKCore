@@ -224,7 +224,7 @@ aggregatorConfiguration {
 		moduleName = "CultureGridLive"
 		actions {
 			statistics {
-				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 			}
 		}
@@ -233,7 +233,7 @@ aggregatorConfiguration {
 		moduleName = "CultureGridTest"
 		actions {
 			statistics {
-				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 			}
 		}
@@ -242,7 +242,7 @@ aggregatorConfiguration {
 		moduleName = "DarkAggregator"
 		actions {
 			statistics {
-				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
 			}
 		}

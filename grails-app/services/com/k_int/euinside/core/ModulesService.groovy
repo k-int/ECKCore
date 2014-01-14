@@ -130,6 +130,10 @@ class ModulesService {
 		return(modules[module].internalPath);
 	}
 
+	public static def getModuleParameters(String module) { 
+		return(modules[module].parameters);
+	}
+
 	/** 
 	 * Determines the query arguments that are to be passed to the module
 	 *  	
@@ -163,7 +167,11 @@ class ModulesService {
 	private def determineURL(module, urlPath, appendJsonToURL) {
 		String url = modules[module].internalURL + modules[module].internalPath;
 		if ((urlPath != null) && !urlPath.isEmpty()) {
-			url += "/" + urlPath;
+			if (!urlPath.startsWith("/")) {
+				// Causes a problem if we have 2 slashes and parameters, without paramaters it works ...
+				url += "/";
+			}
+			url += urlPath;
 		}
 		if (appendJsonToURL) {
 			url += ".json";
@@ -337,7 +345,8 @@ class ModulesService {
 		def url = determineURL(module, parameters.path, appendJsonToURL);
 		def queryArguments = createURLArgs(module, parameters);
 		log.debug("making HTTP call to url: " + url);
-
+		log.debug("Arguments: " + queryArguments);
+		
 		// Determine if we have a file to send on
 		def multiPartFiles = null;
 
@@ -413,7 +422,7 @@ class ModulesService {
 					result = processResponse(httpResponse, content);
 				}
 			}
-		} catch (ConnectException e) {
+		} catch (ConnectException | UnknownHostException e) {
 			result = [ : ];
 			result.content = null;
 			result.status = new BasicStatusLine(HttpVersion.HTTP_1_1, HttpServletResponse.SC_GATEWAY_TIMEOUT, "Timeout");

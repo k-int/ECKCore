@@ -1,7 +1,6 @@
 package com.k_int.euinside.core
 
 import java.nio.charset.Charset;
-
 import javax.servlet.http.HttpServletResponse;
 
 import com.k_int.euinside.client.json.ClientJSON;
@@ -65,8 +64,10 @@ class AggregatorService {
 			responseValue = setError("Unknown Aggregator: \"" + aggregatorName + "\"");
 		} else {
 			// It is an aggregator we know about
-			def providerCode = parameters.providerCode;
-			def collectionCode = parameters.collectionCode;
+			// Build up the potential parameter replacements
+			def replacementFields = [ : ];
+			replacementFields.'PROVIDER' = parameters.providerCode;
+			replacementFields.'COLLECTION' = parameters.collectionCode;
 			def action = parameters.aggregatorAction;
 			def actionProperties = aggregator.actions[action];
 			if ((actionProperties == null) || actionProperties.isEmpty()) {
@@ -74,16 +75,33 @@ class AggregatorService {
 			} else {
 				// It is an action this aggregator knows about
 				def moduleName = aggregator.'moduleName';
-				def actionParameters = actionProperties.'Parameters';
+				
+				// Set the path we use to get the result
 				String path = actionProperties.'path';
-				String finalPath = replaceKeyFields(path, providerCode, collectionCode);
-				parameters.'path' = finalPath;
+				parameters.'path' = replaceKeyFields(path, replacementFields);
+				
+				// Set any parameters from the configuration
+				def actionParameters = actionProperties.'parameters';
 				if (!actionParameters.isEmpty()) {
 					actionParameters.each() {
-						parameters[it.key] = replaceKeyFields(it.value, providerCode, collectionCode);
+						def value = replaceKeyFields(it.value, replacementFields);
+						if ((value != null) && !value.isEmpty()) {
+							parameters[it.key] = value;
+						}
 					}
 				}
-	
+				
+				// Do we need to map any parameters
+				def mapParameters = actionProperties.'MapParameters';
+				if (!mapParameters.isEmpty()) {
+					mapParameters.each() {
+						def value = parameters[it.value]
+						if ((value != null) && !value.isEmpty()) {
+							parameters[it.key] = value;
+						}
+					}
+				}
+
 				// Go away get the response from the aggregator
 				responseValue = ModulesService.httpGet(moduleName, parameters, requestObject, false);
 				
@@ -128,7 +146,11 @@ class AggregatorService {
 		}
     }
 	
-	private def replaceKeyFields(value, providerCode, collectionCode) {
-		return(value.replace("\$(PROVIDER)", providerCode).replace("\$(COLLECTION)", collectionCode));
+	private def replaceKeyFields(value, replacementFields) {
+		def result = value;
+		replacementFields.each() {
+			result = result.replace("\$(" + it.key + ")" , it.value);
+		}
+		return(result);
 	}
 }
