@@ -45,8 +45,13 @@ modules {
 // Here you can define the communication with your own aggregator, if it is not provided out of the box
 // As an example the Dark Aggregator is defined as 
 //	DarkAggregator {
-//		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 //		moduleName = "DarkAggregator"
+//		actions {
+//			statistics {
+//				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+//				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+//			}
+//		}
 //	}
 // Which says that the module to be used is DarkAggregator, your module is very unlikely to be defined by default,
 // so you will need to add a module with the same name in the modules section above so it knows how to communicate with your aggregator
@@ -55,14 +60,19 @@ modules {
 // \$(COLLECTION) which will be replace by the collection specified in the url
 //
 // As another example you can also specify parameters to be added to the url (the bit after the question mark in the url), the following is what is used for Europeanea 
-//Europeana {
-//	path = "datasets/provider_id.json"
-//	moduleName = "Europeana"
-//	Parameters {
-//		id = "\$(PROVIDER)"
-//		wskey = "XXX"
+//	Europeana {
+//		moduleName = "Europeana"
+//		actions {
+//			statistics {
+//				path = "datasets/provider_id.json"
+//				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
+//				Parameters {
+//					id = "\$(PROVIDER)"
+//					wskey = "t2nkfwUNA"
+//				}
+//			}
+//		}
 //	}
-//}
 // Here we ignore the collection code as this is not required, but we need to specify 2 parameters id which we set to the provider code and the wskey which is your europeana api key
 // 
 aggregators {

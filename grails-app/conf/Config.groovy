@@ -146,12 +146,15 @@ moduleConfiguration {
 	}
 	// Note: Real url for Europeana is http://europeana.eu/api/v2
 	Europeana {
-		internalURL = "http://testenv-solr.eanadev.org:9191"
+		internalURL = "http://http://test.portal2.eanadev.org"
 		internalPath = "/api/v2"
-		externalURL = "http://testenv-solr.eanadev.org:9191"
+		externalURL = "http://http://test.portal2.eanadev.org"
 		externalPath = "/api/v2"
 		parameters = ["id",
-					  "wskey"]
+					  "wskey",
+					  "offset",
+					  "pagesize",
+					  "countryCode"]
 	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
@@ -218,32 +221,52 @@ moduleConfiguration {
 
 aggregatorConfiguration {
 	CultureGridLive {
-		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "CultureGridLive"
-		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+		actions {
+			statistics {
+				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+			}
+		}
 	}
 	CultureGridTest {
-		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "CultureGridTest"
-		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+		actions {
+			statistics {
+				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+			}
+		}
 	}
 	DarkAggregator {
-		path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 		moduleName = "DarkAggregator"
-		statsParser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+		actions {
+			statistics {
+				path = "/dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
+			}
+		}
 	}
 	Europeana {
-		path = "datasets/provider_id.json"
 		moduleName = "Europeana"
-		statsParser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
-		Parameters {
-			id = "\$(PROVIDER)"
-			wskey = "api2demo"
+		actions {
+			statistics {
+				path = "datasets/provider_id.json"
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
+				Parameters {
+					id = "\$(PROVIDER)"
+					wskey = "t2nkfwUNA"
+				}
+			}
 		}
 	}
 	SetManager {
-		path = "Set/\$(PROVIDER)/\$(COLLECTION)/statistics"
 		moduleName = "SetManager"
-		statsParser = "com.k_int.euinside.client.module.setmanager.statistics.Statistic"
+		actions {
+			statistics {
+				path = "Set/\$(PROVIDER)/\$(COLLECTION)/statistics"
+				parser = "com.k_int.euinside.client.module.setmanager.statistics.Statistic"
+			}
+		}
 	}
 }

@@ -1,7 +1,7 @@
 class UrlMappings {
 
 	static mappings = {
-		"/Aggregator/$providerCode/$collectionCode/statistics/$aggregatorName" {
+		"/Aggregator/$providerCode/$collectionCode/$aggregatorAction/$aggregatorName" {
 			controller = "gateway"
 			action = [GET : "aggregatorGetRelay"]
 		}
