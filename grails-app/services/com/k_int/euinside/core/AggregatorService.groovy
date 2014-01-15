@@ -77,9 +77,14 @@ class AggregatorService {
 					
 				case "search":
 				case "statistics":
-				default:
 					addReplacementField(replacementFields, "COLLECTION", parameter2);
 					addReplacementField(replacementFields, "PROVIDER", parameter1);
+					break;
+					
+				default:
+					// Add parameter1 and parameter2 as parameters for any user defined actions
+					addReplacementField(replacementFields, "PARAMETER1", parameter1);
+					addReplacementField(replacementFields, "PARAMETER2", parameter2);
 					break;
 			}
 			def actionProperties = aggregator.actions[action];
@@ -144,7 +149,7 @@ class AggregatorService {
 								if (classObject != null) {
 									// We have loaded it, so lets turn the json into a String and attempt to turn it
 									// into the class object 
-									def json = new String(responseValue.contentBytes, Charset.forName("UTF-8"));
+									def json = new String(responseValue.contentBytes, UTF8);
 									if ((json != null) && !json.isEmpty()) {
 										def returnedObject = ClientJSON.readJSONString(json, classObject);
 										if (returnedObject != null) {
