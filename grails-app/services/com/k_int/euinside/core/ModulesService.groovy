@@ -19,6 +19,7 @@ import org.apache.http.message.BasicStatusLine;
 
 class ModulesService {
 	def grailsApplication
+	def LoggingUtilitiesService;
 
 	public static String MODULE_CORE                = "Core";
 	public static String MODULE_DATA_MAPPING        = "DataMapping"; // Libis
@@ -44,40 +45,12 @@ class ModulesService {
 		
 		// We need to merge the site configuration from modules
 		def modulesSite = grailsApplication.config.modules;
-		// Step through each of the modules the site has defined and update the predefined configuration with their configuration
-		modulesSite.each() {
-			// Is it a module we know abount
-			def module = modules[it.key];
-			if (module.isEmpty()) {
-				log.info("Adding new module in configuration: \"" + it.key + "\"");
-				module = [ : ];
-				modules[it.key] = module;
-			}
-			
-			log.info("Using local information for module: \"" + it.key + "\"");
-			it.value.each() { key, value ->
-//				if (value instanceof String) {
-					log.info("Setting " + key + " to: \"" + value.toString() + "\"");
-					module[key] = value;
-//				}
-			}
-		}
-			
+		
+		// Merge the site configuration with the default configuration
+		modules = modules.merge(modulesSite);
+
 		// Log all the information we have for a module to the log file
-		log.debug("Dumping module configuration");
-		modules.each() {
-			// Log the module information
-			log.debug("Module: \"" + it.key + "\"");
-			it.value.each () { key, value ->
-				if (value instanceof String) {
-					log.debug(key + ": \"" + value + "\"");
-				} else if (key.equals("parameters")) {
-					value.each() { parameter ->
-						log.debug("Parameter: \"" + parameter + "\"");
-					}
-				}
-			}
-		}
+		LoggingUtilitiesService.logObject("Dumping module configuration", modules);
 		
 		corePath = modules[MODULE_CORE].externalPath;
 	}

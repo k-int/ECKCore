@@ -8,6 +8,7 @@ import com.k_int.euinside.client.json.ClientJSON;
 class AggregatorService {
 
 	def grailsApplication
+	def LoggingUtilitiesService
 	def ModulesService
 	
 	public static Charset UTF8 = Charset.forName("UTF-8");
@@ -24,30 +25,14 @@ class AggregatorService {
 		aggregators = aggregators.merge(aggregatorConfigurationSite);
 
 		// Log all the information we have for an aggregator to the log file
-		log.debug("Dumping aggregator configuration");
-		dumpObject(aggregators, 0);
+		LoggingUtilitiesService.logObject("Dumping aggregator configuration", aggregators);
 	}
 
-	def dumpObject(object, indent) {
-		def indentation = "";
-		for (int i = 0; i < indent; i++) {
-			indentation += "    ";
-		}
-		object.each() {
-			if (it.value instanceof Map) {
-				log.debug(indentation + "Key: \"" + it.key + "\"");
-				dumpObject(it.value, indent + 1);
-			} else {
-				log.debug(indentation + "\"" + it.key + "\" = \"" + it.value + "\"");
-			}
-		}
-	}
-	
 	def getAggregators() {
 		return(aggregators);
 	}
 
-	def setError(errorText) {
+	private def setError(errorText) {
 		def result = [ : ];
 		result.status = [ : ];
 		result.status.statusCode = HttpServletResponse.SC_BAD_REQUEST;
