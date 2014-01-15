@@ -144,17 +144,20 @@ moduleConfiguration {
 		externalURL = "http://localhost:28081"
 		externalPath = "/ECKDefinition"
 	}
-	// Note: Real url for Europeana is http://europeana.eu/api/v2
 	Europeana {
-		internalURL = "http://http://test.portal2.eanadev.org"
+		internalURL = "http://europeana.eu"
 		internalPath = "/api/v2"
-		externalURL = "http://http://test.portal2.eanadev.org"
+		externalURL = "http://europeana.eu"
 		externalPath = "/api/v2"
-		parameters = ["id",
-					  "wskey",
+		parameters = ["countryCode",
+					  "id",
 					  "offset",
 					  "pagesize",
-					  "countryCode"]
+					  "profile",
+					  "query",
+					  "rows",
+					  "start",
+					  "wskey"]
 	}
 	PIDGenerate {
 		internalURL = "http://euinside.semantika.si"
@@ -250,11 +253,34 @@ aggregatorConfiguration {
 	Europeana {
 		moduleName = "Europeana"
 		actions {
+			enrichmentRecord {
+				path = "record/\$(SET_ID)/\$(RECORD_ID).json"
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecord"
+				defaultParameters {
+					profile = "full"
+					wskey = "t2nkfwUNA"
+				}
+			}
+			search {
+				path = "search.json"
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaSearchResult"
+				parameters {
+					query = "europeana_collectionName:\"\$(COLLECTION)\""
+				}
+				defaultParameters {
+					profile = "minimal"
+					rows = "50"
+					start = "1"
+					wskey = "t2nkfwUNA"
+				}
+			}
 			statistics {
 				path = "datasets/provider_id.json"
 				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
-				Parameters {
+				parameters {
 					id = "\$(PROVIDER)"
+				}
+				defaultParameters {
 					wskey = "t2nkfwUNA"
 				}
 			}

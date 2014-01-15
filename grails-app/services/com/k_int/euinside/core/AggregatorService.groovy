@@ -66,9 +66,22 @@ class AggregatorService {
 			// It is an aggregator we know about
 			// Build up the potential parameter replacements
 			def replacementFields = [ : ];
-			replacementFields.'PROVIDER' = parameters.providerCode;
-			replacementFields.'COLLECTION' = parameters.collectionCode;
+			def parameter1 = parameters.parameter1;
+			def parameter2 = parameters.parameter2;
 			def action = parameters.aggregatorAction;
+			switch (action) {
+				case "enrichmentRecord":
+					addReplacementField(replacementFields, "RECORD_ID", parameter2);
+					addReplacementField(replacementFields, "SET_ID", parameter1);
+					break;
+					
+				case "search":
+				case "statistics":
+				default:
+					addReplacementField(replacementFields, "COLLECTION", parameter2);
+					addReplacementField(replacementFields, "PROVIDER", parameter1);
+					break;
+			}
 			def actionProperties = aggregator.actions[action];
 			if ((actionProperties == null) || actionProperties.isEmpty()) {
 				responseValue = setError("Unknown action for Aggregator: \"" + action + "\"");
@@ -92,12 +105,23 @@ class AggregatorService {
 				}
 				
 				// Do we need to map any parameters
-				def mapParameters = actionProperties.'MapParameters';
+				def mapParameters = actionProperties.'mapParameters';
 				if (!mapParameters.isEmpty()) {
 					mapParameters.each() {
 						def value = parameters[it.value]
 						if ((value != null) && !value.isEmpty()) {
 							parameters[it.key] = value;
+						}
+					}
+				}
+
+				// Do we have any default parameters
+				def defaultParameters = actionProperties.'defaultParameters';
+				if (!defaultParameters.isEmpty()) {
+					defaultParameters.each() {
+						def value = parameters[it.key]
+						if ((value == null) || value.isEmpty()) {
+							parameters[it.key] = it.value;
 						}
 					}
 				}
@@ -122,11 +146,11 @@ class AggregatorService {
 									// into the class object 
 									def json = new String(responseValue.contentBytes, Charset.forName("UTF-8"));
 									if ((json != null) && !json.isEmpty()) {
-										def statsObject = ClientJSON.readJSONString(json, classObject);
-										if (statsObject != null) {
+										def returnedObject = ClientJSON.readJSONString(json, classObject);
+										if (returnedObject != null) {
 											// We have successfully interpreted the json, so let us now turn it into aGeneric Stats object
 											try {
-												responseValue.JSONResponse = statsObject.convertToGeneric();
+												responseValue.JSONResponse = returnedObject.convertToGeneric();
 											} catch (MissingMethodException e) {
 												// That is fine we can ignore the error, just means we will not map it to the generic format
 												log.error("Unable to find method convertToGeneric in class: \"" + classFile + "\"");
@@ -145,11 +169,17 @@ class AggregatorService {
 			return(responseValue);
 		}
     }
+
+	private def addReplacementField(replacementFields, key, value) {
+		if (value != null) {
+			replacementFields["\$(" + key + ")"] = value;
+		}
+	}	
 	
 	private def replaceKeyFields(value, replacementFields) {
 		def result = value;
 		replacementFields.each() {
-			result = result.replace("\$(" + it.key + ")" , it.value);
+			result = result.replace(it.key , it.value);
 		}
 		return(result);
 	}

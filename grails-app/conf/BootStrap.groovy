@@ -19,11 +19,18 @@ class BootStrap {
 				((key != "class") && (key != "logger") && (value != null))
 			});
 		}
-		JSON.registerObjectMarshaller(com.k_int.euinside.client.module.aggregator.generic.GenericStatistic) {
-			excludeUnimportantFieldsAndNullFields(it);
-		}
-		JSON.registerObjectMarshaller(com.k_int.euinside.client.module.aggregator.generic.GenericEuropeanaStatistic) {
-			excludeUnimportantFieldsAndNullFields(it);
+		def classesToFilterJSONResults = [com.k_int.euinside.client.module.aggregator.generic.GenericEuropeanaStatistic,
+			 							  com.k_int.euinside.client.module.aggregator.generic.GenericStatistic,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecord,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordObject,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordProxy,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaSearchResult,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaSearchItem]
+
+		classesToFilterJSONResults.each() { classToFilter ->
+			JSON.registerObjectMarshaller(classToFilter) {
+				excludeUnimportantFieldsAndNullFields(it);
+			}
 		}
     }
 	

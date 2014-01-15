@@ -20,6 +20,12 @@
 modules {
 	Core {
 	}
+	CultureGridLive {
+	}
+	CultureGridTest {
+	}
+	DarkAggregator {
+	}
 	DataMapping {
 	}
 	DataTransformation {
@@ -58,17 +64,43 @@ modules {
 // The path is the url path that will be appended to that specified in the module section, there are 2 important keywords here
 // \$(PROVIDER) which will be replaced by the provider code specified in the url and
 // \$(COLLECTION) which will be replace by the collection specified in the url
+// \$(SET_ID) which will be replace by the set identifier specified in the url
+// \$(RECORD_ID) which will be replace by the record identifier specified in the url
 //
-// As another example you can also specify parameters to be added to the url (the bit after the question mark in the url), the following is what is used for Europeanea 
+// As another example you can also specify parameters to be added to the url (the bit after the question mark in the url), the following is what is used for Europeanea
+// This example shows how can you set default parameters as well 
 //	Europeana {
 //		moduleName = "Europeana"
 //		actions {
+//			enrichmentRecord {
+//				path = "record/\$(SET_ID)/\$(RECORD_ID).json"
+//				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecord"
+//				defaultParameters {
+//					profile = "full"
+//					wskey = "XXX"
+//				}
+//			}
+//			search {
+//				path = "search.json"
+//				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaSearchResult"
+//				parameters {
+//					query = "europeana_collectionName:\"\$(COLLECTION)\""
+//				}
+//				defaultParameters {
+//					profile = "minimal"
+//					rows = "50"
+//					start = "1"
+//					wskey = "XXX"
+//				}
+//			}
 //			statistics {
 //				path = "datasets/provider_id.json"
 //				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaDataSetResult"
-//				Parameters {
+//				parameters {
 //					id = "\$(PROVIDER)"
-//					wskey = "t2nkfwUNA"
+//				}
+//				defaultParameters {
+//					wskey = "XXX"
 //				}
 //			}
 //		}
@@ -77,3 +109,4 @@ modules {
 // 
 aggregators {
 }
+
