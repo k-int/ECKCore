@@ -4,7 +4,7 @@
 <html>
 	<head>
 	  	<meta name="layout" content="bootstrap"/>
-	  	<title>ECKCore - Aggregator - Test Page</title>
+	  	<title>ECKCore - Aggregator - EnrichmentRecord - Test Page</title>
 	</head>
 
 	<body>
@@ -13,22 +13,15 @@
 		
 		  		<div class="hero-unit row">
 		    		<div class="page-header span12">
-		      			<h1>ECKCore - Aggregator - Test Page</h1>
+		      			<h1>ECKCore - Aggregator - EnrichmentRecord - Test Page</h1>
 		    		</div>
 		  		</div>
 		  
 			  	<div class="row">
-			  		<h4>All fields need to be filled out, if a provider code or collection code is not relevant for the selected aggregator, enter *</h4>
+			  		<h4>Either the Set and Record Id or the Provider and lidoRecID need to be filled out along with the Aggregator</h4>
+			  		
 			     	<div class="span12">
 		           		<table>
-		               		<tr>
-		                   		<th align="right">Provider Code: </th>
-		                   		<td><g:field type="text" name="providerCode" value="*" required="true"/></td>
-		               		</tr>
-		               		<tr>
-		                   		<th align="right">Collection Code: </th>
-		                   		<td><g:field type="text" name="collectionCode" value="*" required="true"/></td>
-		               		</tr>
 		               		<tr>
 		                   		<th align="right">Aggregator: </th>
 		                   		<td>
@@ -38,6 +31,22 @@
 										</g:each>
 									</select>
 								</td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Set: </th>
+		                   		<td><g:field type="text" name="set"/></td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Record Id: </th>
+		                   		<td><g:field type="text" name="recordId"/></td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Provider Code: </th>
+		                   		<td><g:field type="text" name="providerCode"/></td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">lidoRecID: </th>
+		                   		<td><g:field type="text" name="lidoRecID"/></td>
 		               		</tr>
 		               		<tr>
 		                   		<th align="right">Output Raw Data: </th>
@@ -58,18 +67,17 @@
     
     	<script type="text/javascript">
 	    	$("#execute").click(function() {
-		    	if ($("#providerCode").val() == "") {
-			    	alert("Please enter the provider code field");
-			    } else if ($("#collectionCode").val() == "") {
-			    	alert("Please enter the collection code field");
+		    	var url = "${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Aggregator/";
+		    	url += $("#aggregator").val() + "/enrichmentRecord/";
+		    	if ($("#set").val() == "") {
+			    	url += $("#providerCode").val() + "?lidoRecID=" + encodeURIComponent($("#lidoRecID").val());
 			    } else {
-			    	var url = "${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Aggregator/";
-			    	url += $("#providerCode").val() + "/" + $("#collectionCode").val() + "/statistics/" + $("#aggregator").val();
-			    	if ($("#rawData").attr("checked") == "checked") {
-				    	url += "?rawRequired=yes";
-				    }
-			    	window.location = url;   
+			    	url += $("#set").val() + "/" + $("#recordId").val();
+			    }
+			    if ($("#rawData").attr("checked") == "checked") {
+				   	url += "?rawRequired=yes";
 				}
+			    window.location = url;   
 	    	});
     	</script>
     

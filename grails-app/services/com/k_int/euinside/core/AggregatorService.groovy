@@ -125,9 +125,14 @@ class AggregatorService {
 				responseValue = ModulesService.httpGet(moduleName, parameters, requestObject, false);
 				
 				if (responseValue.status.statusCode == HttpServletResponse.SC_OK) {
+					// Will we be receiving xml
+					def isXMLResponse = actionProperties.xmlResponse;
+					isXMLResponse = ((isXMLResponse instanceof Boolean) && isXMLResponse);
+					
 					// Can we turn this into a generic statistic response
+					// If we have an xml response then we do need to turn it into a class file ...
 					def rawRequired = parameters.rawRequired;
-					if ((rawRequired == null) || !rawRequired.equals("yes")) {
+					if ((rawRequired == null) || !rawRequired.equals("yes") || isXMLResponse) {
 						// They have not requested the raw response
 						def convertedOutput = null;
 						def classFile = actionProperties.parser;
@@ -142,8 +147,7 @@ class AggregatorService {
 									def data = new String(responseValue.contentBytes, UTF8);
 									if ((data != null) && !data.isEmpty()) {
 										def returnedObject;
-										def isXML = actionProperties.xmlResponse;
-										if ((isXML instanceof Boolean) && isXML) {
+										if (isXMLResponse) {
 											returnedObject = ClientXML.readXMLString(data, classObject);
 										} else {
 											returnedObject = ClientJSON.readJSONString(data, classObject);
