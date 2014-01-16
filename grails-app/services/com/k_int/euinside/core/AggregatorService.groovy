@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import javax.servlet.http.HttpServletResponse;
 
 import com.k_int.euinside.client.json.ClientJSON;
+import com.k_int.euinside.client.xml.ClientXML;
 
 class AggregatorService {
 
@@ -49,33 +50,37 @@ class AggregatorService {
 			responseValue = setError("Unknown Aggregator: \"" + aggregatorName + "\"");
 		} else {
 			// It is an aggregator we know about
-			// Build up the potential parameter replacements
-			def replacementFields = [ : ];
-			def parameter1 = parameters.parameter1;
-			def parameter2 = parameters.parameter2;
 			def action = parameters.aggregatorAction;
-			switch (action) {
-				case "enrichmentRecord":
-					addReplacementField(replacementFields, "RECORD_ID", parameter2);
-					addReplacementField(replacementFields, "SET_ID", parameter1);
-					break;
-					
-				case "search":
-				case "statistics":
-					addReplacementField(replacementFields, "COLLECTION", parameter2);
-					addReplacementField(replacementFields, "PROVIDER", parameter1);
-					break;
-					
-				default:
-					// Add parameter1 and parameter2 as parameters for any user defined actions
-					addReplacementField(replacementFields, "PARAMETER1", parameter1);
-					addReplacementField(replacementFields, "PARAMETER2", parameter2);
-					break;
-			}
 			def actionProperties = aggregator.actions[action];
 			if ((actionProperties == null) || actionProperties.isEmpty()) {
 				responseValue = setError("Unknown action for Aggregator: \"" + action + "\"");
 			} else {
+				// Build up the potential parameter replacements
+				def replacementFields = [ : ];
+				def parameter1 = parameters.parameter1;
+				def parameter2 = parameters.parameter2;
+				def defaultReplacements = actionProperties.'defaultReplacements'; 
+				switch (action) {
+					case "enrichmentRecord":
+						addReplacementField(replacementFields, "RECORD_ID", parameter2, defaultReplacements);
+						addReplacementField(replacementFields, "SET_ID", parameter1, defaultReplacements);
+						addReplacementField(replacementFields, "PROVIDER_OR_SET_ID", parameter1, defaultReplacements);
+						break;
+						
+					case "search":
+					case "statistics":
+						addReplacementField(replacementFields, "COLLECTION", parameter2, defaultReplacements);
+						addReplacementField(replacementFields, "PROVIDER", parameter1, defaultReplacements);
+						addReplacementField(replacementFields, "PROVIDER_OR_SET_ID", parameter1, defaultReplacements);
+						break;
+						
+					default:
+						// Add parameter1 and parameter2 as parameters for any user defined actions
+						addReplacementField(replacementFields, "PARAMETER1", parameter1, defaultReplacements);
+						addReplacementField(replacementFields, "PARAMETER2", parameter2, defaultReplacements);
+						break;
+				}
+				
 				// It is an action this aggregator knows about
 				def moduleName = aggregator.'moduleName';
 				
@@ -126,7 +131,7 @@ class AggregatorService {
 						// They have not requested the raw response
 						def convertedOutput = null;
 						def classFile = actionProperties.parser;
-						if (classFile != null) {
+						if (!classFile.isEmpty()) {
 							// A class file has been defined to turn it into a generic stats response
 							try {
 								// Lets see if we can load the class file
@@ -134,9 +139,15 @@ class AggregatorService {
 								if (classObject != null) {
 									// We have loaded it, so lets turn the json into a String and attempt to turn it
 									// into the class object 
-									def json = new String(responseValue.contentBytes, UTF8);
-									if ((json != null) && !json.isEmpty()) {
-										def returnedObject = ClientJSON.readJSONString(json, classObject);
+									def data = new String(responseValue.contentBytes, UTF8);
+									if ((data != null) && !data.isEmpty()) {
+										def returnedObject;
+										def isXML = actionProperties.xmlResponse;
+										if ((isXML instanceof Boolean) && isXML) {
+											returnedObject = ClientXML.readXMLString(data, classObject);
+										} else {
+											returnedObject = ClientJSON.readJSONString(data, classObject);
+										}
 										if (returnedObject != null) {
 											// We have successfully interpreted the json, so let us now turn it into aGeneric Stats object
 											try {
@@ -160,10 +171,19 @@ class AggregatorService {
 		}
     }
 
-	private def addReplacementField(replacementFields, key, value) {
-		if (value != null) {
-			replacementFields["\$(" + key + ")"] = value;
+	private def addReplacementField(replacementFields, key, value, defaultReplacements) {
+		if ((value == null) || value.isEmpty()) {
+			// Do we have a default replacement value
+			if ((defaultReplacements != null) && !defaultReplacements.isEmpty()) {
+				value = defaultReplacements[key];
+			}
+			
+			// If value is null, set it to an empty string
+			if (value == null) {
+				value = "";
+			}
 		}
+		replacementFields["\$(" + key + ")"] = value;
 	}	
 	
 	private def replaceKeyFields(value, replacementFields) {

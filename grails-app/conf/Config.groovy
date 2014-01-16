@@ -106,18 +106,24 @@ moduleConfiguration {
 		internalPath = ""
 		externalURL = "http://www.culturegrid.org.uk"
 		externalPath = ""
+		parameters = ["provider",
+					  "providerResourceId"]
 	}
 	CultureGridTest {
 		internalURL = "http://testing.culturegrid.org.uk"
 		internalPath = ""
 		externalURL = "http://testing.culturegrid.org.uk"
 		externalPath = ""
+		parameters = ["provider",
+					  "providerResourceId"]
 	}
 	DarkAggregator {
 		internalURL = "http://euinside.k-int.com"
 		internalPath = ""
 		externalURL = "http://euinside.k-int.com"
 		externalPath = ""
+		parameters = ["provider",
+					  "providerResourceId"]
 	}
 	DataMapping {
 		internalURL = "http://www.heron-net.be"
@@ -226,6 +232,20 @@ aggregatorConfiguration {
 	CultureGridLive {
 		moduleName = "CultureGridLive"
 		actions {
+			enrichmentRecord {
+				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
+				xmlResponse = true
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				parameters {
+					provider = "\$(PROVIDER_OR_SET_ID)"
+				}
+				mapParameters {
+					providerResourceId = "lidoRecID"
+				}
+				defaultReplacements {
+					RECORD_ID = "*"
+				}
+			}
 			statistics {
 				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
@@ -235,6 +255,20 @@ aggregatorConfiguration {
 	CultureGridTest {
 		moduleName = "CultureGridTest"
 		actions {
+			enrichmentRecord {
+				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
+				xmlResponse = true
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				parameters {
+					provider = "\$(PROVIDER_OR_SET_ID)"
+				}
+				mapParameters {
+					providerResourceId = "lidoRecID"
+				}
+				defaultReplacements {
+					RECORD_ID = "*"
+				}
+			}
 			statistics {
 				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
@@ -244,6 +278,20 @@ aggregatorConfiguration {
 	DarkAggregator {
 		moduleName = "DarkAggregator"
 		actions {
+			enrichmentRecord {
+				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
+				xmlResponse = true
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				parameters {
+					provider = "\$(PROVIDER_OR_SET_ID)"
+				}
+				mapParameters {
+					providerResourceId = "lidoRecID"
+				}
+				defaultReplacements {
+					RECORD_ID = "*"
+				}
+			}
 			statistics {
 				path = "dpp/collection/statistics/\$(PROVIDER)/\$(COLLECTION)"
 				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridStatistic"
@@ -255,7 +303,7 @@ aggregatorConfiguration {
 		actions {
 			enrichmentRecord {
 				path = "record/\$(SET_ID)/\$(RECORD_ID).json"
-				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecord"
+				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordEnrichment"
 				defaultParameters {
 					profile = "full"
 					wskey = "t2nkfwUNA"

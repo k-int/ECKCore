@@ -21,6 +21,7 @@ class BootStrap {
 		}
 		def classesToFilterJSONResults = [com.k_int.euinside.client.module.aggregator.generic.GenericEuropeanaStatistic,
 			 							  com.k_int.euinside.client.module.aggregator.generic.GenericStatistic,
+										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments,
 										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecord,
 										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordObject,
 										  com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordProxy,

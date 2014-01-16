@@ -62,10 +62,11 @@ modules {
 // Which says that the module to be used is DarkAggregator, your module is very unlikely to be defined by default,
 // so you will need to add a module with the same name in the modules section above so it knows how to communicate with your aggregator
 // The path is the url path that will be appended to that specified in the module section, there are 2 important keywords here
-// \$(PROVIDER) which will be replaced by the provider code specified in the url and
+// \$(PROVIDER) which will be replaced by the provider code specified in the url
 // \$(COLLECTION) which will be replace by the collection specified in the url
 // \$(SET_ID) which will be replace by the set identifier specified in the url
 // \$(RECORD_ID) which will be replace by the record identifier specified in the url
+// \$(PROVIDER_OR_SET_ID) which will be replaced by the provider code or set id specified in the url
 //
 // As another example you can also specify parameters to be added to the url (the bit after the question mark in the url), the following is what is used for Europeanea
 // This example shows how can you set default parameters as well 
