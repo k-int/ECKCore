@@ -40,7 +40,7 @@ grails.project.dependency.resolution = {
 		compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
 		compile 'org.apache.httpcomponents:httpmime:4.2.3'
 		compile 'commons-io:commons-io:2.4'
-		compile "com.k-int.EUInside:ECKClient:0.2-SNAPSHOT"
+		compile "com.k-int.EUInside:ECKClient:0.3-SNAPSHOT"
     }
 
     plugins {
