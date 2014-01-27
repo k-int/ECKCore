@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
 		compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {
 			excludes 'groovy'
 		}
-	
+
 		compile "com.k-int.EUInside:ECKClient:0.3-SNAPSHOT"
     }
 

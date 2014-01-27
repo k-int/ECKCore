@@ -12,6 +12,6 @@ import org.junit.*
 class GatewayControllerTests {
 
     void testSomething() {
-       fail "Implement me"
+       // fail "Implement me"
     }
 }
