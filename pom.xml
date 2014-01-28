@@ -188,18 +188,15 @@
             <version>0.3-SNAPSHOT</version>
             <scope>compile</scope>
 			<exclusions>
-				<!-- dom4j, xalan and xerces are excluded as it stops maven talking to grails, due to an older version of the xml api definition -->
-				<exclusion>
-					<groupId>dom4j</groupId>
-					<artifactId>dom4j</artifactId>            
-				</exclusion>
-				<exclusion>
-					<groupId>xalan</groupId>
-					<artifactId>xalan</artifactId>            
-				</exclusion>
+				<!-- xerces and xml-apis are excluded as it stops maven talking to grails, due to an older version of the xml api definition -->
 				<exclusion>
 					<groupId>xerces</groupId>
 					<artifactId>xmlParserAPIs</artifactId>            
+				</exclusion>
+
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
 				</exclusion>
 			</exclusions> 
         </dependency>
