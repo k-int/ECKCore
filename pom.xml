@@ -7,7 +7,7 @@
     <groupId>k-int.com.EUInside</groupId>
     <artifactId>ECKCore</artifactId>
     <packaging>grails-app</packaging>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
 
     <name>ECKCore</name>
     <description>ECKCore</description>
@@ -18,6 +18,62 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+	<scm>
+		<connection>scm:git:git://github.com/k-int/ECKCore.git</connection>
+		<developerConnection>scm:git:https://github.com/k-int/ECKCore.git</developerConnection>
+		<url>https://github.com/k-int/ECKCore</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>k-int-releases</id>
+			<name>Knowledge Intergation Maven2 Repository</name>
+			<url>http://projects.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/releases/</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>k-int-snapshots</id>
+			<name>Knowledge Intergation Maven2 Snapshot Repository</name>
+			<url>http://projects.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>grails</id>
+            <name>grails</name>
+            <url>http://repo.grails.org/grails/core</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+        </repository>
+		
+        <repository>
+            <id>grails-plugins</id>
+            <name>grails-plugins</name>
+            <url>http://repo.grails.org/grails/plugins</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+        </repository>
+
+		<repository>
+			<id>k-int-releases-repo</id>
+			<name>k-int Snapshot Repository</name>
+			<url>http://developer.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/releases/</url>
+		</repository>
+
+		<repository>
+			<id>k-int-snapshot-repo</id>
+			<name>k-int Snapshot Repository</name>
+			<url>http://developer.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -246,6 +302,7 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -263,6 +320,15 @@
                 </configuration>
             </plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+				</configuration>
+			</plugin>
+
             <plugin>
                 <groupId>org.grails</groupId>
                 <artifactId>grails-maven-plugin</artifactId>
@@ -275,19 +341,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>grails</id>
-            <name>grails</name>
-            <url>http://repo.grails.org/grails/core</url>
-        </repository>
-        <repository>
-            <id>grails-plugins</id>
-            <name>grails-plugins</name>
-            <url>http://repo.grails.org/grails/plugins</url>
-        </repository>
-    </repositories>
 
     <profiles>
         <profile>
