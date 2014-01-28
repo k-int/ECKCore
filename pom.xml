@@ -5,7 +5,7 @@
     <groupId>com.k-int.EUInside</groupId>
     <artifactId>ECKCore</artifactId>
     <packaging>grails-app</packaging>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
 
     <name>ECKCore</name>
     <description>ECKCore</description>
@@ -21,7 +21,7 @@
 		<connection>scm:git:git://github.com/k-int/ECKCore.git</connection>
 		<developerConnection>scm:git:https://github.com/k-int/ECKCore.git</developerConnection>
 		<url>https://github.com/k-int/ECKCore</url>
-		<tag>ECKCore-0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
