@@ -63,6 +63,6 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         compile ':cache:1.1.1'
-        build ":tomcat:7.0.41"
+        build ":tomcat:7.0.50"
     }
 }
