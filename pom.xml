@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>k-int.com.EUInside</groupId>
+    <groupId>com.k-int.EUInside</groupId>
     <artifactId>ECKCore</artifactId>
     <packaging>grails-app</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
 
     <name>ECKCore</name>
     <description>ECKCore</description>
