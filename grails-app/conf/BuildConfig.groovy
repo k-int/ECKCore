@@ -40,7 +40,7 @@ grails.project.dependency.resolution = {
 
 		compile 'commons-io:commons-io:2.4'
 		compile "net.sf.ehcache:ehcache-core:2.4.6"
-		compile 'org.apache.httpcomponents:httpmime:4.2.3'
+		compile 'org.apache.httpcomponents:httpmime:4.2.5'
 
 		// We do not want the groovy file being pulled in, as it includes the wrong version
 		compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {

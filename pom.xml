@@ -10,12 +10,11 @@
     <name>ECKCore</name>
     <description>ECKCore</description>
 
-    <properties>
-        <grails.version>2.3.5</grails.version>
-        <h2.version>1.3.170</h2.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
+	<parent>
+		<groupId>com.k-int.EUInside</groupId>
+		<artifactId>ECKParentGrails</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
 
 	<scm>
 		<connection>scm:git:git://github.com/k-int/ECKCore.git</connection>
@@ -24,337 +23,166 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<distributionManagement>
-		<repository>
-			<id>k-int-releases</id>
-			<name>Knowledge Intergation Maven2 Repository</name>
-			<url>http://projects.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/releases/</url>
-		</repository>
-
-		<snapshotRepository>
-			<id>k-int-snapshots</id>
-			<name>Knowledge Intergation Maven2 Snapshot Repository</name>
-			<url>http://projects.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>grails</id>
-            <name>grails</name>
-            <url>http://repo.grails.org/grails/core</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-        </repository>
-		
-        <repository>
-            <id>grails-plugins</id>
-            <name>grails-plugins</name>
-            <url>http://repo.grails.org/grails/plugins</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-        </repository>
-
-		<repository>
-			<id>k-int-releases-repo</id>
-			<name>k-int Snapshot Repository</name>
-			<url>http://developer.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/releases/</url>
-		</repository>
-
-		<repository>
-			<id>k-int-snapshot-repo</id>
-			<name>k-int Snapshot Repository</name>
-			<url>http://developer.k-int.com:8081/nexus-webapp-1.4.0/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-async</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-rest</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-services</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-i18n</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-databinding</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-filters</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-gsp</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-log4j</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-servlets</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-url-mappings</artifactId>
-            <version>${grails.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-resources</artifactId>
-            <version>${grails.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-test</artifactId>
-            <version>${grails.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-plugin-testing</artifactId>
-            <version>${grails.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.codehaus.groovy.modules.http-builder</groupId>
-            <artifactId>http-builder</artifactId>
-            <version>0.6</version>
-            <scope>compile</scope>
-			<exclusions>
-				<!-- Groovy is excluded as http-builder uses an older version that conflicts with grails -->
-				<exclusion>
-					<groupId>org.codehaus.groovy</groupId>
-					<artifactId>groovy</artifactId>
-				</exclusion>
-				<!-- xml-apis is excluded as it stops maven talking to grails, due to an older version of the xml api definition -->
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions> 
-            
-        </dependency>
-
-        <dependency>
-            <groupId>com.k-int.EUInside</groupId>
-            <artifactId>ECKClient</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <scope>compile</scope>
-			<exclusions>
-				<!-- xerces and xml-apis are excluded as it stops maven talking to grails, due to an older version of the xml api definition -->
-				<exclusion>
-					<groupId>xerces</groupId>
-					<artifactId>xmlParserAPIs</artifactId>            
-				</exclusion>
-
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions> 
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-            <scope>compile</scope>
-            
-        </dependency>
-        
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>2.4.6</version>
-            <scope>compile</scope>
-            
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.2.3</version>
-            <scope>compile</scope>
-            
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>cache</artifactId>
-            <version>1.1.1</version>
-            <scope>compile</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>jquery</artifactId>
-            <version>1.8.3</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>1.8.24</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>resources</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>twitter-bootstrap</artifactId>
-            <version>2.3.0</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>webxml</artifactId>
-            <version>1.4.1</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
-            <artifactId>tomcat</artifactId>
-            <version>7.0.50</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
-        
-
-    </dependencies>
-
     <build>
-        <pluginManagement />
-
         <plugins>
-            <!-- Disables the Maven surefire plugin for Grails applications, as we have our own test runner -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>plugins</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
             </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.2</version>
-				<configuration>
-					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-				</configuration>
 			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
 
             <plugin>
                 <groupId>org.grails</groupId>
                 <artifactId>grails-maven-plugin</artifactId>
-                <version>${grails.version}</version>
-                <configuration>
-                    <!-- Whether for Fork a JVM to run Grails commands -->
-                    <fork>true</fork>
-                </configuration>
-                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>tools</id>
-            <activation>
-                <property>
-                    <name>java.vendor</name>
-                    <value>Sun Microsystems Inc.</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.sun</groupId>
-                    <artifactId>tools</artifactId>
-                    <version>${java.version}</version>
-                    <scope>system</scope>
-                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
+	<dependencies>
+		<dependency>
+			<groupId>com.k-int.EUInside</groupId>
+			<artifactId>ECKClient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy.modules.http-builder</groupId>
+			<artifactId>http-builder</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-async</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-databinding</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-filters</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-i18n</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-gsp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-log4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-rest</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-services</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-servlets</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-testing</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-url-mappings</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-resources</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>cache</artifactId>
+			<type>zip</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>jquery</artifactId>
+			<type>zip</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>jquery-ui</artifactId>
+			<type>zip</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>resources</artifactId>
+			<type>zip</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>tomcat</artifactId>
+			<type>zip</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>twitter-bootstrap</artifactId>
+			<type>zip</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>webxml</artifactId>
+			<type>zip</type>
+		</dependency>
+	</dependencies>
 </project>
