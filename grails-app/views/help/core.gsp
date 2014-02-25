@@ -47,11 +47,6 @@
 	                			<td>http://euinside.k-int.com/ECKCore2/Definition/errors</td>
 	                		</tr>
 	                		<tr>
-	                			<td>Europeana Statistics (datasets)</td>
-	                			<td>Europeana</td>
-	                			<td>http://euinside.k-int.com/ECKCore2/Europeana/providers.json?wskey=xxx</td>
-	                		</tr>
-	                		<tr>
 	                			<td><a href="http://euinside.semantika.si/pid/Generate">PID Generation</a></td>
 	                			<td>PIDGenerate</td>
 	                			<td>http://euinside.k-int.com/ECKCore2/PIDGenerate/generate</td>
