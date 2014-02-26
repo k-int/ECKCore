@@ -1,5 +1,6 @@
 <% def ModulesService = application.getAttribute("org.codehaus.groovy.grails.APPLICATION_CONTEXT").getBean("modulesService") %>
 <!doctype html>
+<!--  Added a comment to show the ccnnection between github and jira -->
 <html>
   	<head>
     	<meta name="layout" content="bootstrap"/>
