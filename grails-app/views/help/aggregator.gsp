@@ -54,7 +54,6 @@
 						<p>The possible actions are:</p>
 						<ul>
 							<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/enrichmentRecord">enrichmentRecord</a></li>
-							<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/search">search</a></li>
 							<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/statistics">statistics</a></li>
                         </ul>
                         
