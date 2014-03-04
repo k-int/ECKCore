@@ -26,7 +26,7 @@
 		                   		<th align="right">Aggregator: </th>
 		                   		<td>
 			                   		<select id="aggregator">
-										<g:each in="${AggregatorService.getAggregators().keySet()}">
+										<g:each in="${AggregatorService.getAggregators('enrichmentRecord').keySet()}">
 											<option value="${it}">${it}</option>
 										</g:each>
 									</select>
@@ -47,6 +47,14 @@
 		               		<tr>
 		                   		<th align="right">lidoRecID: </th>
 		                   		<td><g:field type="text" name="lidoRecID"/></td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Start: </th>
+		                   		<td><g:field type="text" name="start"/></td>
+		               		</tr>
+		               		<tr>
+		                   		<th align="right">Rows: </th>
+		                   		<td><g:field type="text" name="rows"/></td>
 		               		</tr>
 		               		<tr>
 		                   		<th align="right">Output Raw Data: </th>
@@ -70,9 +78,25 @@
 		    	var url = "${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/Aggregator/";
 		    	url += $("#aggregator").val() + "/enrichmentRecord/";
 		    	if ($("#set").val() == "") {
+			    	// Retrieve the enrichment for a specific lidoRecID
 			    	url += $("#providerCode").val() + "?lidoRecID=" + encodeURIComponent($("#lidoRecID").val());
 			    } else {
-			    	url += $("#set").val() + "/" + $("#recordId").val();
+				    url += $("#set").val();
+				    if ($("#recordId").val() == "") {
+					    // Retrieve the enrichments from the specified offset for the given number of records
+						url += "/*" 
+						var attributeAppender = "?";
+					    if ($("#start").val() != "") {
+					    	url += attributeAppender + "start=" + $("#start").val();
+					    	attributeAppender = "&";
+					    }
+					    if ($("#rows").val() != "") {
+					    	url += attributeAppender + "rows=" + $("#rows").val();
+					    }
+					} else {
+						// Retrieve the enrcihment for the specified record id
+			    		url +=  "/" + $("#recordId").val();
+					}
 			    }
 			    if ($("#rawData").attr("checked") == "checked") {
 				   	url += "?rawRequired=yes";

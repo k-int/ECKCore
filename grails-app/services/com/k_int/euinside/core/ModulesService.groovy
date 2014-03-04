@@ -17,6 +17,8 @@ import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.HttpVersion;
 import org.apache.http.message.BasicStatusLine;
 
+import com.k_int.euinside.client.BaseClient;
+
 class ModulesService {
 	def grailsApplication
 	def LoggingUtilitiesService;
@@ -53,6 +55,9 @@ class ModulesService {
 		LoggingUtilitiesService.logObject("Dumping module configuration", modules);
 		
 		corePath = modules[MODULE_CORE].externalPath;
+
+		// Set the core base url in the eck client library		
+		BaseClient.setCoreBaseURL(getModuleInternalURL(MODULE_CORE) + getModuleInternalPath(MODULE_CORE));
 	}
 
 	public static String getCoreModuleCode() {

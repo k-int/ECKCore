@@ -107,7 +107,9 @@ moduleConfiguration {
 		externalURL = "http://www.culturegrid.org.uk"
 		externalPath = ""
 		parameters = ["provider",
-					  "providerResourceId"]
+					  "providerResourceId",
+					  "rows",
+					  "start"]
 	}
 	CultureGridTest {
 		internalURL = "http://testing.culturegrid.org.uk"
@@ -115,7 +117,9 @@ moduleConfiguration {
 		externalURL = "http://testing.culturegrid.org.uk"
 		externalPath = ""
 		parameters = ["provider",
-					  "providerResourceId"]
+					  "providerResourceId",
+					  "rows",
+					  "start"]
 	}
 	DarkAggregator {
 		internalURL = "http://euinside.k-int.com"
@@ -123,7 +127,9 @@ moduleConfiguration {
 		externalURL = "http://euinside.k-int.com"
 		externalPath = ""
 		parameters = ["provider",
-					  "providerResourceId"]
+					  "providerResourceId",
+					  "rows",
+					  "start"]
 	}
 	DataMapping {
 		internalURL = "http://www.heron-net.be"
@@ -236,6 +242,8 @@ aggregatorConfiguration {
 				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
 				xmlResponse = true
 				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				specialProcessing = "checkForMultiple" 
+				specialProcessingParameter = "cultureGridMultiple" 
 				parameters {
 					provider = "\$(PROVIDER_OR_SET_ID)"
 				}
@@ -244,6 +252,14 @@ aggregatorConfiguration {
 				}
 				defaultReplacements {
 					RECORD_ID = "*"
+				}
+			}
+			search {
+				path = "dpp/collection/search/enrichedRecords/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridSearchResult"
+				defaultParameters {
+					rows = "50"
+					start = "1"
 				}
 			}
 			statistics {
@@ -259,6 +275,8 @@ aggregatorConfiguration {
 				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
 				xmlResponse = true
 				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				specialProcessing = "checkForMultiple" 
+				specialProcessingParameter = "cultureGridMultiple" 
 				parameters {
 					provider = "\$(PROVIDER_OR_SET_ID)"
 				}
@@ -267,6 +285,14 @@ aggregatorConfiguration {
 				}
 				defaultReplacements {
 					RECORD_ID = "*"
+				}
+			}
+			search {
+				path = "dpp/collection/search/enrichedRecords/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridSearchResult"
+				defaultParameters {
+					rows = "50"
+					start = "1"
 				}
 			}
 			statistics {
@@ -282,6 +308,8 @@ aggregatorConfiguration {
 				path = "dpp/resource/\$(RECORD_ID)/stream/EuropeanaEnrichment"
 				xmlResponse = true
 				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaEnrichments"
+				specialProcessing = "checkForMultiple" 
+				specialProcessingParameter = "cultureGridMultiple" 
 				parameters {
 					provider = "\$(PROVIDER_OR_SET_ID)"
 				}
@@ -290,6 +318,14 @@ aggregatorConfiguration {
 				}
 				defaultReplacements {
 					RECORD_ID = "*"
+				}
+			}
+			search {
+				path = "dpp/collection/search/enrichedRecords/\$(COLLECTION)"
+				parser = "com.k_int.euinside.client.module.aggregator.cultureGrid.CultureGridSearchResult"
+				defaultParameters {
+					rows = "50"
+					start = "1"
 				}
 			}
 			statistics {
@@ -304,6 +340,8 @@ aggregatorConfiguration {
 			enrichmentRecord {
 				path = "record/\$(SET_ID)/\$(RECORD_ID).json"
 				parser = "com.k_int.euinside.client.module.aggregator.europeana.EuropeanaRecordEnrichment"
+				specialProcessing = "checkForMultiple" 
+				specialProcessingParameter = "europeanaMultiple" 
 				defaultParameters {
 					profile = "full"
 					wskey = "t2nkfwUNA"

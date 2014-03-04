@@ -25,7 +25,7 @@
 		                   		<th align="right">Aggregator: </th>
 		                   		<td>
 			                   		<select id="aggregator">
-										<g:each in="${AggregatorService.getAggregators().keySet()}">
+										<g:each in="${AggregatorService.getAggregators('statistics').keySet()}">
 											<option value="${it}">${it}</option>
 										</g:each>
 									</select>

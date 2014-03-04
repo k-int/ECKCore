@@ -6,6 +6,7 @@ grails.project.target.level = 1.7
 grails.project.source.level = 1.7
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 grails.project.dependency.resolver = "maven"
+//grails.server.port.http = 28090
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
