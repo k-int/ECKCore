@@ -18,7 +18,25 @@
 		  		</div>
 		  
 			  	<div class="row">
-			  		<h4>Either the Set and Record Id or the Provider and lidoRecID need to be filled out along with the Aggregator</h4>
+			  		<h4>The combinations of fields that work are:</h4>
+			  		<ul>
+			  			<li>
+			  				<b>Europeana (individual record): Set and Record Id</b>
+			  				<br/>eg, Set: 02301, Record Id: urn_imss_instrument_406053
+			  			</li>
+			  			<li>
+			  				<b>Europeana (multiple records): Set, Start, Rows</b>
+			  				<br/>eg. Set: 2022360_Ag_UK_CultureGrid_IWM-FWW, start: 1, rows: 5
+			  			</li>
+			  			<li>
+			  				<b>CG / DA (individual record): Provider Code and lidoRecID</b>
+			  				<br/>eg. CG Test, Provider: IWM, lidoRecID: http://www.iwm.org.uk/collections/item/object/205080185
+			  			</li>
+			  			<li>
+			  				<b>CG / DA (multiple records): Set, Start, Rows</b>
+			  				<br/>eg. CG Test, Set: IWM, start: 1, rows: 5
+			  			</li>
+			  		</ul>
 			  		
 			     	<div class="span12">
 		           		<table>
