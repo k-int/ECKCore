@@ -196,12 +196,14 @@ moduleConfiguration {
 					  "from",
 					  "historyItems",
 					  "identifier",
+					  "live",
 					  "metadataPrefix",
 					  "resumptionToken",
 					  "recordId",
 					  "set",
 					  "setDescription",
 					  "statisticsDetails",
+					  "status",
 					  "until",
 					  "verb"]
 	}
