@@ -103,8 +103,8 @@ class GatewayController {
 	}
 
 	def previewGetRelay() {
-		def responseValue = ModulesService.httpGet(ModulesService.MODULE_VALIDATE, params, request);
-		processResponse(responseValue, ModulesService.MODULE_VALIDATE);
+		def responseValue = ModulesService.httpGet(ModulesService.MODULE_PREVIEW, params, request);
+		processResponse(responseValue, ModulesService.MODULE_PREVIEW);
 	}
 	
     def previewPostRelay() {
