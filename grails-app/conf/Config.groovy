@@ -198,6 +198,7 @@ moduleConfiguration {
 					  "identifier",
 					  "live",
 					  "metadataPrefix",
+					  "option",
 					  "resumptionToken",
 					  "recordId",
 					  "set",
