@@ -191,21 +191,28 @@ moduleConfiguration {
 		internalPath = "/ECKSetManager"
 		externalURL = "http://localhost:28082"
 		externalPath = "/ECKSetManager"
-		parameters = ["delete",
+		parameters = ["collectionId",
+			          "delete",
 					  "deleteAll",
+					  "europeanaId",
 					  "from",
 					  "historyItems",
 					  "identifier",
 					  "live",
 					  "metadataPrefix",
 					  "option",
+					  "password",
+					  "providerDescription",
+					  "providerId",
 					  "resumptionToken",
 					  "recordId",
 					  "set",
 					  "setDescription",
 					  "statisticsDetails",
 					  "status",
+					  "swordURL",
 					  "until",
+					  "username",
 					  "verb"]
 	}
 	Statistics {
