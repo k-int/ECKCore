@@ -3,6 +3,9 @@ package com.k_int.euinside.core
 import groovyx.net.http.Method
 import groovyx.net.http.HTTPBuilder;
 
+// Used when disabling zip encoding, when we actually want to see what is on the wire 
+//import groovyx.net.http.ContentEncoding;
+
 import java.nio.charset.Charset;
  
 import javax.servlet.http.HttpServletResponse;
@@ -191,18 +194,41 @@ class ModulesService {
 	 *                 content ....... The returned content
 	 *                 status ........ The status line
 	 *                 contentType ... The type of the content
+	 *                 charset ....... The character set of the content
 	 */
 	private def processResponse(httpResponse, content) {
 		def result = [ : ];
 		result.content = content;
 		result.status = httpResponse.statusLine;
 		result.contentBytes = null;
+		result.charset = UTF8;
+
+		// determine the character set, if not set we defaulot to UTF-8
+		def contentType = httpResponse.getEntity().getContentType();
+		if (contentType != null) {
+			if (contentType.getElements() != null) {
+				if (contentType.getElements().length > 0) {
+					def headerElement = contentType.getElements()[0];
+					if (headerElement != null) {
+						def charsetString = headerElement.getParameterByName("charset");
+						if (charsetString != null) {
+							charsetString = charsetString.getValue();
+							try {
+								result.charset = Charset.forName(charsetString);
+							} catch (Exception e) {
+								// Assume the default of utf8, which is already set
+							}
+						}
+					}
+				}
+			}
+		}
 
 		// If we have a reader in our hand, then get hold of the string		
 		if (content != null) {
 			if (content instanceof java.io.Reader) {
 				// Turn the response into a byte array
-				result.contentBytes = IOUtils.toByteArray(content, UTF8);
+				result.contentBytes = IOUtils.toByteArray(content, result.charset);
 			} else if (content instanceof java.io.InputStream) {
 				// Slightly different conersion in this case
 				result.contentBytes = IOUtils.toByteArray(content);
@@ -342,6 +368,10 @@ class ModulesService {
 		http.parser.'application/xml' = http.parser.'text/plain';
 		http.parser.'text/xml' = http.parser.'text/plain';
 		http.parser.'text/html' = http.parser.'text/plain';
+
+		// Remove the zip encoding for the response, this is useful for debugging what is on the wire
+//		http.client.removeRequestInterceptorByClass( ContentEncoding.RequestInterceptor.class );
+//		http.client.removeResponseInterceptorByClass( ContentEncoding.ResponseInterceptor.class );
 
 		try {		
 			http.request(method) { req ->

@@ -21,7 +21,7 @@ class GatewayController {
 			if ((contentType != null) && (responseValue.contentBytes != null)) {
 				// if the content type is html, then we need to modify the urls contained in the html
 				if (contentType.contains("html")) {
-					String html = new String(responseValue.contentBytes, "UTF-8");
+					String html = new String(responseValue.contentBytes, ((responseValue.charset == null) ? "UTF-8" : responseValue.charset));
 					html = ModulesService.replacePathInHtml(module, html);
 					render(text : html, contentType : contentType, encoding : "UTF-8");
 				} else {
