@@ -13,7 +13,7 @@
 	
 	        	<div class="hero-unit row">
 	          		<div class="page-header span12">
-	            		<h1>Welcome to the ECK Core (iteration 2) prototype system</h1>
+	            		<h1>Welcome to the ECK Core</h1>
 	        	  	</div>
 	          		<p>The gateway for the modules used by ECK</p>
 	        	</div>
@@ -74,7 +74,7 @@
 <!--
 	                			<td><g:link base="http://euinside.semantika.si" controller="pid" action="Generate">PID Generation</g:link></td>
 -->
-	                			<td>PID Generation</td>
+	                			<td><g:link base="http://euinside.semantika.si">PID Generation</g:link></td>
 	                			<td>Semantika</td>
 	                			<td><a href="/ECKCore/static/docs/Semantika_EU_Inside_PID_Generation_WS.pdf">api</a></td>
 	                			<td>http://euinside.semantika.si/pid</td>

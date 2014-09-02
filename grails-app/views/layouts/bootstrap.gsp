@@ -44,10 +44,10 @@
           			<div class="nav-collapse">
             			<ul class="nav">              
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/help/core">Core</a></li>
-	                		<li><a href="http://www.heron-net.be/einside_test/dmt.php/DataMapping">Data Mapping</a></li>
-	                		<li><a href="http://services.libis.be/euinside/mt.php/DataMapping">Data Transformation</a></li>
+	                		<li>Data Mapping</li>
+	                		<li>Data Transformation</li>
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getDefinitionModuleCode()}/">Metadata Definition</a></li>
-	                		<li><a href="http://euinside.semantika.si/pid/Generate">PID Generation</a></li>
+	                		<li><a href="http://euinside.semantika.si/">PID Generation</a></li>
 	                		<li><a href="http://euinside.asp.monguz.hu/eck-preview-servlet/index.html">Preview</a></li>
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getSetManagerModuleCode()}/">Set Manager</a></li>
 	                		<li><a href="${ModulesService.getModuleExternalPath(ModulesService.getCoreModuleCode())}/${ModulesService.getStatisticsModuleCode()}/">Statistics</a></li>
@@ -66,8 +66,8 @@
       		<hr>
 
    			<footer>
-      			<span class="pull-right">&copy; Knowledge Integration Ltd 2013</span>
-      			<span><b>Europeana Inside ECK Core prototype</b> <i>Simplified uploading of resources to Europeana Inside the Collections Management System</i></span>
+      			<span class="pull-right"><img src="http://i.creativecommons.org/l/by/3.0/88x31.png"/></span>
+      			<span><b>Europeana Inside ECK Core</b> <i>Simplifying the supply of resources to Europeana and other Aggregators</i></span>
    			</footer>
    		</div>
 
