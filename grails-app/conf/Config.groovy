@@ -204,6 +204,7 @@ moduleConfiguration {
 					  "password",
 					  "providerDescription",
 					  "providerId",
+					  "pushFormat",
 					  "resumptionToken",
 					  "recordId",
 					  "set",
