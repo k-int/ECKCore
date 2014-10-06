@@ -48,7 +48,7 @@ grails.project.dependency.resolution = {
 			excludes 'groovy'
 		}
 
-		compile "com.k-int.EUInside:ECKClient:0.3-SNAPSHOT"
+		compile "com.k-int.EUInside:ECKClient:0.4"
     }
 
     plugins {
